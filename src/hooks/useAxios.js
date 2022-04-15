@@ -9,19 +9,17 @@ export const useAxios = (url, method, payload, dependency) => {
 
   useEffect(() => {
     if (!(typeof dependency?.[0] === 'boolean' && dependency?.[0] === false)) {
-    
-    
-    // axios
-    //   .request({
-    //     method,
-    //     url,
-    //     ...payload
-    //   })
-    //   .then(response => {
-    //     setData(response)
-    //   })
-    //   .catch(error => setError(error.message))
-    //   .finally(() => setLoading(true));
+      axios
+        .request({
+          method,
+          url,
+          ...payload
+        })
+        .then(response => {
+          setData(response)
+        })
+        .catch(error => setError(error.message))
+        .finally(() => setLoading(true));
     }
   }, dependency);
 

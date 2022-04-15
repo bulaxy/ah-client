@@ -3,9 +3,9 @@ import { CardsProvider } from "../contexts/CardsContext";
 
 function App() {
   return (
-    <SiteSettingProvider>
-        <Header />
-    </SiteSettingProvider>
+    <CardsProvider>
+      <Header />
+    </CardsProvider>
   );
 }
 

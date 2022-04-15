@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
-import useAxios from "../hooks/useAxios"
+import { useAxios } from "../hooks/useAxios"
 const CardsContext = React.createContext()
 
 export const useSiteSettingContext = () => {
@@ -9,9 +9,11 @@ export const useSiteSettingContext = () => {
 
 export const CardsProvider = ({ children }) => {
     const [items, setItems] = useLocalStorage('cardList', [])
-    const { data, error, loading } = useAxios('https://arkhamdb.com/api/public/cards', 'GET', {}, [items?.length == 0 ? true : false])
+    //const { data, error, loading } = useAxios('https://arkhamdb.com/api/public/cards', 'GET', {}, [items?.length == 0 ? false : true])
+    const { data, error, loading } = useAxios('https://localhost:8000/api/arkhamcards', 'GET', {}, [])
     useEffect(() => setItems(data), data)
 
+    console.log(items)
     if (loading) {
         return <></>
     }
