@@ -1,12 +1,22 @@
+import { useEffect, useRef } from "react";
 import { Accordion, Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { BsGearFill, BsBellFill } from "react-icons/bs"
+import { useKeyPress } from "../../hooks/useKeyPress"
 
 export default function Header() {
+    const searchFocus = useKeyPress("/")
+    const searchInput = useRef(null);
+
+    useEffect(() => {
+        if (searchFocus) {
+            searchInput.current.focus()
+        }
+    }, [searchFocus])
 
     return (
         <Navbar bg="dark" variant="dark" >
             <Container fluid>
-                <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                <Navbar.Brand href="/">Navbar scroll</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -14,18 +24,16 @@ export default function Header() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
-                        <Nav.Link href="#" disabled>
-                            Link
-                        </Nav.Link>
+                        <Nav.Link href="action1">Deck Builder</Nav.Link>
+                        <Nav.Link href="action2">Cards Info</Nav.Link>
                     </Nav>
                     <Form className="d-flex">
-                        <FormControl
+                        <Form.Control
                             type="search"
                             placeholder="Search"
                             className="me-2"
                             aria-label="Search"
+                            ref={searchInput}
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>

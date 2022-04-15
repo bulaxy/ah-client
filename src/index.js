@@ -1,9 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './components/App';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
+import { BrowserRouter } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />)
+
+const root = createRoot(document.getElementById('root'));
+root.render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+)
