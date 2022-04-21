@@ -1,13 +1,16 @@
 import Header from './Header'
 import { CardsProvider } from "../contexts/CardsContext";
+import { PageHeaderProvider } from "../contexts/PageHeaderContext";
 import PageRouter from './PageRouter'
 
 function App() {
   return (
-    <CardsProvider>
-      <Header />
-      <PageRouter />
-    </CardsProvider>
+    <PageHeaderProvider>
+      <CardsProvider>
+        <Header />
+        <PageRouter />
+      </CardsProvider>
+    </PageHeaderProvider>
   );
 }
 

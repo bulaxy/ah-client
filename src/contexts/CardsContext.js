@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
 import { useAxios } from "../hooks/useAxios"
+import { toCamelCase } from "../utils/general"
+
 const CardsContext = React.createContext()
 
 export const useCardsContext = () => {
@@ -15,13 +17,16 @@ export const CardsProvider = ({ children }) => {
 
     useEffect(() => {
         if (data) {
-            setCards(data.data)
+            setCards(toCamelCase(data.data))
         }
     }, [data])
 
     useEffect(() => {
         setFilteredCards(cards.filter(card => {
             let result = []
+            // If no filter, dont over populate it
+            if (Object.keys(filter).length === 0) return false
+
             Object.keys(filter).forEach(key => {
                 switch (filter[key].operation) {
                     // Using shorten name like the way sharepoint is doing it.
@@ -51,14 +56,19 @@ export const CardsProvider = ({ children }) => {
             return result.indexOf(false) === -1
         }))
     }, [filter, cards])
-    //let uniqueKeys = Object.keys(Object.assign({}, ...cards));
+
+    const getCardByCode = (code) => {
+        return cards.find(card => card.code === code)
+    }
+
     console.log(filter, filteredCards)
     return (
         <CardsContext.Provider
             value={{
                 cards,
                 setFilter,
-                filteredCards
+                filteredCards,
+                getCardByCode
             }}
         >
             {cards?.data?.length}

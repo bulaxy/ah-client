@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'arkham-icons';
+    src: url(../fonts/arkham-icons.otf) format('otf');
+  }
+
+  .test{
+    font-family: arkham-icons;
+    content:'o';
+    background-color: red;
+  }
