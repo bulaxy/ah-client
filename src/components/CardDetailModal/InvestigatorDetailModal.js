@@ -14,7 +14,7 @@ export default function InvestigatorDetailModal(props) {
         </div>
         {show &&
 
-            <Modal show={show} onHide={toggleShow}>
+            <Modal show={show} onHide={toggleShow} size={'lg'}>
                 <Modal.Body>
                     <CardFlipper code={card.code} />
                     <Accordion flush className={'mt-1'}>

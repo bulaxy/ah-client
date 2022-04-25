@@ -10,7 +10,6 @@ import { BrowserRouter } from "react-router-dom";
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-    // <span className='test' >o</span>
     <BrowserRouter>
         <App />
     </BrowserRouter>

@@ -1,4 +1,7 @@
-export default function AHTextReplacer() {
+export default function AHTextReplacer({ text }) {
+    switch (text) {
+
+    }
     return (
         <div>
 
