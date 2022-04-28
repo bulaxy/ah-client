@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { Accordion, Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { BsGearFill, BsBellFill } from "react-icons/bs"
 import { useKeyPress } from "../../hooks/useKeyPress"
+import { GiToken } from 'react-icons/gi'
+import ChaosBagModal from '../Modal/ChaosBagStatsModal'
 
 export default function Header() {
     const searchFocus = useKeyPress("/")
@@ -27,6 +29,13 @@ export default function Header() {
                         <Nav.Link href="investigators">Deck Builder</Nav.Link>
                         <Nav.Link href="action2">Cards Info</Nav.Link>
                     </Nav>
+                    <ChaosBagModal
+                        trigger={
+                            <Button className="d-flex" variant="outline-info">
+                                <GiToken size={'1.5em'} />
+                            </Button>
+                        }
+                    />
                     <Form className="d-flex">
                         <Form.Control
                             type="search"

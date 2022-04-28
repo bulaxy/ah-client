@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Card, Col, Row, Button } from "react-bootstrap"
 import { useCardsContext } from "../../../contexts/CardsContext"
-import InvestigatorDetailModal from "../../CardDetailModal/InvestigatorDetailModal"
+import InvestigatorDetailModal from "../../Modal/CardDetailModal/InvestigatorDetailModal"
 
 export default function InvestigatorList() {
     const { filteredCards, setFilter } = useCardsContext()
