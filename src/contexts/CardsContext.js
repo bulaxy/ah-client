@@ -61,7 +61,6 @@ export const CardsProvider = ({ children }) => {
         return cards.find(card => card.code === code)
     }
 
-    console.log(filter, filteredCards)
     return (
         <CardsContext.Provider
             value={{
