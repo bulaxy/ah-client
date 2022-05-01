@@ -1,31 +1,29 @@
 import { useChaosBagContext } from "../../../contexts/ChaosBagContext"
+import { Image, Button, Accordion } from 'react-bootstrap'
 
 function TokenButton({ token }) {
-    const { addToken, removeToken } = useChaosBagContext()
-    return <div>
+    const { bag, addToken, removeToken } = useChaosBagContext()
 
+    return <div style={{ width: '4em' }} className={'m-2'}>
+        <Image src={bag[token].img} fluid onClick={() => addToken(token)} onContextMenu={(e) => { e.preventDefault(); removeToken(token) }} />
+        <div className='d-flex justify-content-between'>
+            <Button variant="outline-secondary" className="rounded-circle" size='sm' style={{ fontSize: '0.5em' }}>-</Button>
+            {bag[token].count ?? 'N/A'}
+            <Button variant="outline-secondary" className="rounded-circle" size='sm' style={{ fontSize: '0.5em' }}>+</Button>
+        </div>
     </div>
 }
 
 export default function BagSetup() {
-
+    const { bagArr } = useChaosBagContext()
     return (
-        <div className={'d-flex justify-content-around'}>
-            <div style={{ width: 50 }}>
-                Elder Sign
-            </div>
-            <div style={{ width: 50 }} onClick={() => { alert(1) }} onContextMenu={() => { alert(-1) }}>
-                +1
-            </div>
-            <div style={{ width: 50 }}>
-                0
-            </div>
-            <div style={{ width: 50 }}>
-                -1
-            </div>
-            <div style={{ width: 50 }}>
-                -2
-            </div>
-        </div >
+        <>
+            <Accordion.Header>Bag Setup (Current Total {bagArr.reduce((a, b) => (a.count || 0) + (b.count || 0), 0)} Tokens)</Accordion.Header>
+            <Accordion.Body>
+                <div className={'d-flex justify-content-around flex-wrap'}>
+                    {bagArr.map(o => <TokenButton key={o.tokenName} token={o.tokenName} />)}
+                </div>
+            </Accordion.Body>
+        </>
     )
 }

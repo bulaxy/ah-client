@@ -57,9 +57,17 @@ const toCamelCase = (obj) => {
     return rtn
 }
 
+const sumArr = (arr, key) => {
+    if (key) {
+        return arr.map(o => o[key]).reduce((a, b) => a + b, 0)
+    }
+    return arr.reduce((a, b) => a + b, 0)
+}
+
 export {
     groupBy,
     mapToKey,
-    toCamelCase
+    toCamelCase,
+    sumArr
 }
 

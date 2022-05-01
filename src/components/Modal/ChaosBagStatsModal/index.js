@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Modal, Button, Image, ListGroup, Container, Col, Row, Accordion, ModalHeader } from "react-bootstrap";
+import { ChaosBagProvider } from '../../../contexts/ChaosBagContext'
 import { useToggle } from "../../../hooks/useToggle"
 import BagSetup from "./BagSetup"
-import { ChaosBagProvider } from '../../../contexts/ChaosBagContext'
+import BagModifierUpdate from "./BagModifierUpdate"
+import BagStats from "./BagStats"
 
 export default function ChaosBagStatsModal(props) {
     const { trigger } = props
@@ -19,7 +21,17 @@ export default function ChaosBagStatsModal(props) {
                 </ModalHeader>
                 <Modal.Body>
                     <ChaosBagProvider>
-                        <BagSetup />
+                        <Accordion defaultActiveKey="setup">
+                            <Accordion.Item eventKey="setup">
+                                <BagSetup />
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="update">
+                                <BagModifierUpdate />
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="stats">
+                                <BagStats />
+                            </Accordion.Item>
+                        </Accordion>
                     </ChaosBagProvider>
                 </Modal.Body>
                 <Modal.Footer>
