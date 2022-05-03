@@ -3,7 +3,7 @@ import { useChaosBagContext } from "../../../contexts/ChaosBagContext"
 import { Image, Button, Accordion, Table } from 'react-bootstrap'
 
 function CombinationView({ resultSet }) {
-    const { bagStats = {}, bag } = useChaosBagContext()
+    const { bagStats = {} } = useChaosBagContext()
     const combinations = useMemo(() => {
         let arr = bagStats?.[resultSet]?.tokenCombinations?.map(obj => JSON.stringify(obj.token)) ?? []
         // Trying to use set from es6
@@ -52,7 +52,14 @@ export default function BagSetup() {
                                 .sort((a, b) => a - b)
                                 .reverse()
                                 .map(key => (
-                                    <td onClick={() => setResultSet(key)}>{Math.round(bagStats[key].probability * 100)}%</td>
+                                    <td onClick={() => setResultSet(key)}>
+                                        <div className="text-center">
+                                            {Math.round(bagStats[key].probability * 100)}%
+                                        </div>
+                                        <div className="text-center">
+                                            {bagStats[key].success}/{bagStats[key].numCombination}
+                                        </div>
+                                    </td>
                                 ))
                             }
                         </tr>
@@ -62,7 +69,14 @@ export default function BagSetup() {
                                 .sort((a, b) => a - b)
                                 .reverse()
                                 .map(key => (
-                                    <td onClick={() => setResultSet(key)}>{Math.round(bagStats[key].cumulativeProb * 100)}%</td>
+                                    <td onClick={() => setResultSet(key)}>
+                                        <div className="text-center">
+                                            {Math.round(bagStats[key].cumulativeProb * 100)}%
+                                        </div>
+                                        <div className="text-center">
+                                            {bagStats[key].cumulativeSuccess}/{bagStats[key].numCombination}
+                                        </div>
+                                    </td>
                                 ))
                             }
                         </tr>

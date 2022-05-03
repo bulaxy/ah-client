@@ -8,7 +8,7 @@ import BagStats from "./BagStats"
 
 export default function ChaosBagStatsModal(props) {
     const { trigger } = props
-    const [show, toggleShow] = useToggle(true)
+    const [show, toggleShow] = useToggle(false)
 
     return (<>
         <div onClick={toggleShow}>
@@ -17,7 +17,7 @@ export default function ChaosBagStatsModal(props) {
         {show &&
             <Modal show={show} onHide={toggleShow} size={'lg'}>
                 <ModalHeader>
-                    Chaos Bag Setup
+                    Chaos Bag Stats Calculator
                 </ModalHeader>
                 <Modal.Body>
                     <ChaosBagProvider>

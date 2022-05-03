@@ -1,5 +1,6 @@
 import { useChaosBagContext } from "../../../contexts/ChaosBagContext"
 import { Image, Button, Accordion } from 'react-bootstrap'
+import { sumArr } from "../../../utils/general";
 
 function TokenButton({ token }) {
     const { bag, addToken, removeToken } = useChaosBagContext()
@@ -16,9 +17,10 @@ function TokenButton({ token }) {
 
 export default function BagSetup() {
     const { bagArr } = useChaosBagContext()
+
     return (
         <>
-            <Accordion.Header>Bag Setup (Current Total {bagArr.reduce((a, b) => (a.count || 0) + (b.count || 0), 0)} Tokens)</Accordion.Header>
+            <Accordion.Header>Bag Setup (Current Total {sumArr(bagArr, 'count')} Tokens)</Accordion.Header>
             <Accordion.Body>
                 <div className={'d-flex justify-content-around flex-wrap'}>
                     {bagArr.map(o => <TokenButton key={o.tokenName} token={o.tokenName} />)}

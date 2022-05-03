@@ -28,6 +28,8 @@ export const useChaosBagContext = () => {
 }
 
 const DEFAULT_BAG = {
+    one: { tokenName: 'one', value: 1, count: 0, img: PLUS_ONE_TOKEN },
+    zero: { tokenName: 'zero', value: 0, count: 0, img: ZERO_TOKEN },
     minusOne: { tokenName: 'minusOne', value: -1, count: 0, img: MINUS_ONE_TOKEN },
     minusTwo: { tokenName: 'minusTwo', value: -2, count: 0, img: MINUS_TWO_TOKEN },
     minusThree: { tokenName: 'minusThree', value: -3, count: 0, img: MINUS_THREE_TOKEN },
@@ -36,8 +38,6 @@ const DEFAULT_BAG = {
     minusSix: { tokenName: 'minusSix', value: -6, count: 0, img: MINUS_SIX_TOKEN },
     minusSeven: { tokenName: 'minusSeven', value: -7, count: 0, img: MINUS_SEVEN_TOKEN },
     minusEight: { tokenName: 'minusEight', value: -8, count: 0, img: MINUS_EIGHT_TOKEN },
-    zero: { tokenName: 'zero', value: 0, count: 0, img: ZERO_TOKEN },
-    one: { tokenName: 'one', value: 1, count: 0, img: PLUS_ONE_TOKEN },
     bless: { tokenName: 'bless', value: 2, count: 0, img: BLESS_TOKEN, redraw: true },
     cultist: { tokenName: 'cultist', value: undefined, count: 0, img: CULTIST_TOKEN, customValue: true },
     curse: { tokenName: 'curse', value: -2, count: 0, img: CURSE_TOKEN },
@@ -59,7 +59,7 @@ const getDrawCombinations = (index, bag = [], drewTokens = []) => {
         return [{ result: 'autoFail', token: newDrewTokens }]
     }
     // Frost Token from EotE
-    if (token.tokenName == 'frost' && drewTokens.find(o => o.tokenName == 'frostToken')) {
+    if (token.tokenName == 'frost' && drewTokens.find(o => o.tokenName == 'frost')) {
         return [{ result: 'autoFail', token: newDrewTokens }]
     }
     // Standard Token
@@ -101,15 +101,21 @@ export const ChaosBagProvider = ({ children }) => {
         let grouped = groupBy(combinations, 'result')
 
         // Loop through each items to store the probability and cummlative probability.
-        let cumulativeProbability = 0
+        let cumulativeSuccess = 0
+        let numCombination = combinations.length
+
         Object.keys(grouped).sort((a, b) => a - b).reverse().forEach(key => {
-            cumulativeProbability = cumulativeProbability + (grouped[key].length / combinations.length)
+            cumulativeSuccess += grouped[key].length
             grouped[key] = {
                 tokenCombinations: grouped[key],
-                probability: grouped[key].length / combinations.length,
-                cumulativeProb: cumulativeProbability
+                success: grouped[key].length,
+                cumulativeSuccess: cumulativeSuccess,
+                numCombination: numCombination,
+                probability: grouped[key].length / numCombination,
+                cumulativeProb: cumulativeSuccess / numCombination,
             }
         })
+
         setBagStats(grouped)
     }, [bag])
 
