@@ -105,13 +105,12 @@ export const ChaosBagProvider = ({ children }) => {
         Object.keys(grouped).sort((a, b) => a - b).reverse().forEach(key => {
             cumulativeProbability = cumulativeProbability + (grouped[key].length / combinations.length)
             grouped[key] = {
-                arr: grouped[key],
+                tokenCombinations: grouped[key],
                 probability: grouped[key].length / combinations.length,
                 cumulativeProb: cumulativeProbability
             }
         })
         setBagStats(grouped)
-
     }, [bag])
 
     const addToken = (token) => {
@@ -136,7 +135,7 @@ export const ChaosBagProvider = ({ children }) => {
             ...prev,
             [token]: {
                 ...prev[token],
-                value
+                value: Number(value)
             }
         }))
     }
