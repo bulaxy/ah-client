@@ -32,13 +32,13 @@ export const CardsProvider = ({ children }) => {
         }
     }, [data])
 
-    console.log(cards, [...new Set(toCamelCase(cards)
-        .map(o => o?.factionCode)
-        .flat())
-    ].filter(o => !(o === '' || typeof o === 'undefined'))
-    )
+    // console.log(cards, [...new Set(toCamelCase(cards)
+    //     .map(o => o?.factionCode)
+    //     .flat())
+    // ].filter(o => !(o === '' || typeof o === 'undefined'))
+    // )
+
     useEffect(() => {
-        console.log('*', filter)
         setFilteredCards(cards.filter(card => {
             let result = []
             // If no filter, dont over populate it

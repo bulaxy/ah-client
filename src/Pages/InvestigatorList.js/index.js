@@ -20,7 +20,21 @@ export default function InvestigatorList() {
     return (
         <div className="mx-5">
             <FactionSelector />
-            <IconSelector />
+            <div className='d-flex flex-fill'>
+                <div>
+                    <IconSelector type='damage' />
+                </div>
+                <div>
+                    <IconSelector type='horror' />
+                </div>
+                <div>
+
+                    <IconSelector type='willpower' />
+                </div>
+            </div>
+            <IconSelector type='combat' />
+            <IconSelector type='intellect' />
+            <IconSelector type='agility' />
             <Row xs={3} md={4} className="g-4">
                 {filteredCards
                     .sort((a, b) => a.realName.replace(/[^a-zA-Z0-9 ]/g, '') > b.realName.replace(/[^a-zA-Z0-9 ]/g, ''))
