@@ -23,7 +23,7 @@ export default function BagSetup() {
             <Accordion.Header>Bag Setup (Current Total {sumArr(bagArr, 'count')} Tokens)</Accordion.Header>
             <Accordion.Body>
                 <div className={'d-flex justify-content-around flex-wrap'}>
-                    {bagArr.map(o => <TokenButton key={o.tokenName} token={o.tokenName} />)}
+                    {bagArr.map(o => <TokenButton key={'TokenSetup-' + o.tokenName} token={o.tokenName} />)}
                 </div>
             </Accordion.Body>
         </>

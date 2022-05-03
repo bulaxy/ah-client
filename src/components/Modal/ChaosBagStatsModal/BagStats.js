@@ -40,7 +40,7 @@ export default function BagSetup() {
                                 .sort((a, b) => a - b)
                                 .reverse()
                                 .map(key => (
-                                    <th onClick={() => setResultSet(key)}>{key}</th>
+                                    <th key={'th-' + key} onClick={() => setResultSet(key)}>{key}</th>
                                 ))
                             }
                         </tr>
@@ -52,7 +52,7 @@ export default function BagSetup() {
                                 .sort((a, b) => a - b)
                                 .reverse()
                                 .map(key => (
-                                    <td onClick={() => setResultSet(key)}>
+                                    <td key={'td-prob-' + key} onClick={() => setResultSet(key)}>
                                         <div className="text-center">
                                             {Math.round(bagStats[key].probability * 100)}%
                                         </div>
@@ -69,7 +69,7 @@ export default function BagSetup() {
                                 .sort((a, b) => a - b)
                                 .reverse()
                                 .map(key => (
-                                    <td onClick={() => setResultSet(key)}>
+                                    <td key={'td-cum-' + key} onClick={() => setResultSet(key)}>
                                         <div className="text-center">
                                             {Math.round(bagStats[key].cumulativeProb * 100)}%
                                         </div>
