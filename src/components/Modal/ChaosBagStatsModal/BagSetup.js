@@ -1,6 +1,6 @@
 import { useChaosBagContext } from "../../../contexts/ChaosBagContext"
 import { Image, Button, Accordion } from 'react-bootstrap'
-import { sumArr } from "../../../utils/general";
+import { sumArr } from "../../../helpers/general";
 
 function TokenButton({ token }) {
     const { bag, addToken, removeToken } = useChaosBagContext()

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
 import { useAxios } from "../hooks/useAxios"
-import { toCamelCase } from "../utils/general"
+import { toCamelCase } from "../helpers/general"
 
 const CardsContext = React.createContext()
 
@@ -11,6 +11,7 @@ export const useCardsContext = () => {
 
 export const CardsProvider = ({ children }) => {
     const [cards, setCards] = useLocalStorage('cardList', [])
+    const [trails, setTrails] = useLocalStorage('cardTrails', [])
     const [filter, setFilter] = useState({})
     const [filteredCards, setFilteredCards] = useState([])
     const { data, error, loading } = useAxios('http://localhost:8000/api/arkhamcardlist', 'GET', {}, [cards === null || cards.length == 0 ? true : false])
@@ -18,16 +19,33 @@ export const CardsProvider = ({ children }) => {
     useEffect(() => {
         if (data) {
             setCards(toCamelCase(data.data))
+            // Get Unique Trails by using Set, split by "." and trimming the white spaces
+            setTrails(
+                [...new Set(toCamelCase(data.data)
+                    .map(o => o
+                        ?.traits
+                        ?.split('.')
+                        ?.map(o => o.trim()))
+                    .flat())
+                ].filter(o => !(o === '' || typeof o === 'undefined'))
+            )
         }
     }, [data])
 
+    console.log(cards, [...new Set(toCamelCase(cards)
+        .map(o => o?.factionCode)
+        .flat())
+    ].filter(o => !(o === '' || typeof o === 'undefined'))
+    )
     useEffect(() => {
+        console.log('*', filter)
         setFilteredCards(cards.filter(card => {
             let result = []
             // If no filter, dont over populate it
             if (Object.keys(filter).length === 0) return false
 
             Object.keys(filter).forEach(key => {
+                if (typeof filter[key] === 'undefined') return
                 switch (filter[key].operation) {
                     // Using shorten name like the way sharepoint is doing it.
                     case 'eq':
@@ -66,6 +84,7 @@ export const CardsProvider = ({ children }) => {
             value={{
                 cards,
                 setFilter,
+                filter,
                 filteredCards,
                 getCardByCode
             }}

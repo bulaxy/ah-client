@@ -1,20 +1,26 @@
 import { useEffect } from "react"
 import { Card, Col, Row, Button } from "react-bootstrap"
-import { useCardsContext } from "../../../contexts/CardsContext"
-import InvestigatorDetailModal from "../../Modal/CardDetailModal/InvestigatorDetailModal"
+import { useCardsContext } from "../../contexts/CardsContext"
+import InvestigatorDetailModal from "../../components/Modal/CardDetailModal/InvestigatorDetailModal"
+import FactionSelector from "../../components/Selector/FactionSelector"
+import IconSelector from "../../components/Selector/IconSelector"
 
 export default function InvestigatorList() {
     const { filteredCards, setFilter } = useCardsContext()
     useEffect(() => {
-        setFilter({
+        setFilter(prev => ({
+            ...prev,
             typeCode: { term: 'investigator', operation: 'eq' },
             hidden: { term: 1, operation: 'ne' }
-        })
+        }))
     }, [])
 
+
+
     return (
-        <>
-            <div>InvestigatorList</div>
+        <div className="mx-5">
+            <FactionSelector />
+            <IconSelector />
             <Row xs={3} md={4} className="g-4">
                 {filteredCards
                     .sort((a, b) => a.realName.replace(/[^a-zA-Z0-9 ]/g, '') > b.realName.replace(/[^a-zA-Z0-9 ]/g, ''))
@@ -35,6 +41,6 @@ export default function InvestigatorList() {
                         </Col>
                     ))}
             </Row>
-        </>
+        </div>
     )
 }

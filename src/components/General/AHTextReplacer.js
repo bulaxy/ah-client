@@ -2,53 +2,53 @@
 // Free Card = t
 // Unique = s
 
-function SwitchText({ text }) {
+function SwitchText({ text, spanProps }) {
     switch (text) {
         case 'per_investigator':
-            return <span className='arkham-icons'>u</span>
+            return <span {...{ ...spanProps, className: spanProps?.className + 'arkham-icons' }}>u</span>
         case 'mystic':
-            return <span className='arkham-icons'>g</span>
+            return <span {...spanProps} className='arkham-icons'>g</span>
         case 'guardian':
-            return <span className='arkham-icons'>f</span>
+            return <span {...spanProps} className='arkham-icons'>f</span>
         case 'seeker':
-            return <span className='arkham-icons'>h</span>
+            return <span {...spanProps} className='arkham-icons'>h</span>
         case 'rogue':
-            return <span className='arkham-icons'>d</span>
+            return <span {...spanProps} className='arkham-icons'>d</span>
         case 'survivor':
-            return <span className='arkham-icons'>e</span>
+            return <span {...spanProps} className='arkham-icons'>e</span>
         case 'wild':
-            return <span className='arkham-icons'>?</span>
+            return <span {...spanProps} className='arkham-icons'>?</span>
         case 'intellect':
-            return <span className='arkham-icons'>b</span>
+            return <span {...spanProps} className='arkham-icons'>b</span>
         case 'combat':
-            return <span className='arkham-icons'>c</span>
+            return <span {...spanProps} className='arkham-icons'>c</span>
         case 'willpower':
-            return <span className='arkham-icons'>p</span>
+            return <span {...spanProps} className='arkham-icons'>p</span>
         case 'agility':
-            return <span className='arkham-icons'>a</span>
+            return <span {...spanProps} className='arkham-icons'>a</span>
         case 'action':
-            return <span className='arkham-icons'>i</span>
+            return <span {...spanProps} className='arkham-icons'>i</span>
         case 'free':
         case 'fast':
-            return <span className='arkham-icons'>j</span>
+            return <span {...spanProps} className='arkham-icons'>j</span>
         case 'reaction':
-            return <span className='arkham-icons'>!</span>
+            return <span {...spanProps} className='arkham-icons'>!</span>
         case 'elder_thing':
-            return <span className='arkham-icons'>n</span>
+            return <span {...spanProps} className='arkham-icons'>n</span>
         case 'elder_sign':
-            return <span className='arkham-icons'>o</span>
+            return <span {...spanProps} className='arkham-icons'>o</span>
         case 'skull':
-            return <span className='arkham-icons'>k</span>
+            return <span {...spanProps} className='arkham-icons'>k</span>
         case 'cultist':
-            return <span className='arkham-icons'>l</span>
+            return <span {...spanProps} className='arkham-icons'>l</span>
         case 'tablet':
-            return <span className='arkham-icons'>q</span>
+            return <span {...spanProps} className='arkham-icons'>q</span>
         case 'curse':
-            return <span className='arkham-icons'>v</span>
+            return <span {...spanProps} className='arkham-icons'>v</span>
         case 'bless':
-            return <span className='arkham-icons'>w</span>
+            return <span {...spanProps} className='arkham-icons'>w</span>
         case 'auto-fail':
-            return <span className='arkham-icons'>m</span>
+            return <span {...spanProps} className='arkham-icons'>m</span>
         default:
             // Check for nested [[]] for bolding texts
             return findAndSetBold(text)

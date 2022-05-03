@@ -1,3 +1,5 @@
+/* Token Constants */
+
 export const MINUS_ONE_TOKEN = require("../resources/images/tokens/-1.png")
 export const MINUS_TWO_TOKEN = require("../resources/images/tokens/-2.png")
 export const MINUS_THREE_TOKEN = require("../resources/images/tokens/-3.png")
@@ -17,4 +19,9 @@ export const FROST_TOKEN = require("../resources/images/tokens/frost.png")
 export const SKULL_TOKEN = require("../resources/images/tokens/skull.png")
 export const TABLET_TOKEN = require("../resources/images/tokens/tablet.png")
 export const AUTO_FAIL_TOKEN = require("../resources/images/tokens/tentacle.png")
+
+/* Symbols Constants */
+export const DAMAGE = require("../resources/icons/damage.png")
+export const HORROR = require("../resources/icons/horror.png")
+export const RESOURCE = require("../resources/icons/resource.png")
 

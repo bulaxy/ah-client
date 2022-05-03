@@ -1,7 +1,0 @@
-export const ALL = require("~/resources/icons/all.png")
-export const GUARDIAN = require("~/resources/icons/guardian.png")
-export const MYSTIC = require("~/resources/icons/mystic.png")
-export const NEUTRAL = require("~/resources/icons/neutral.png")
-export const ROGUE = require("~/resources/icons/rogue.png")
-export const SEEKER = require("~/resources/icons/seeker.png")
-export const SURVIVOR = require("~/resources/icons/survivor.png")

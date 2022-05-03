@@ -20,7 +20,7 @@ import {
     TABLET_TOKEN,
     AUTO_FAIL_TOKEN
 } from '../constants/imageConstants'
-import { sumArr, groupBy } from '../utils/general'
+import { sumArr, groupBy } from '../helpers/general'
 const ChaosBagContext = React.createContext()
 
 export const useChaosBagContext = () => {
