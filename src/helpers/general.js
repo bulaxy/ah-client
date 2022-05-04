@@ -57,6 +57,11 @@ const toCamelCase = (obj) => {
     return rtn
 }
 
+const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
 const sumArr = (arr, key) => {
     if (key) {
         return arr.map(o => o[key]).reduce((a, b) => a + b, 0)
@@ -68,6 +73,7 @@ export {
     groupBy,
     mapToKey,
     toCamelCase,
-    sumArr
+    sumArr,
+    capitalize
 }
 

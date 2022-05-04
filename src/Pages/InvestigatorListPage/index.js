@@ -1,9 +1,9 @@
 import { useEffect } from "react"
-import { Card, Col, Row, Button } from "react-bootstrap"
+import { Card, Col, Row, Button, InputGroup, FormControl, Dropdown, DropdownButton } from "react-bootstrap"
 import { useCardsContext } from "../../contexts/CardsContext"
 import InvestigatorDetailModal from "../../components/Modal/CardDetailModal/InvestigatorDetailModal"
 import FactionSelector from "../../components/Selector/FactionSelector"
-import IconSelector from "../../components/Selector/IconSelector"
+import IconSelector, { FilterIcons } from "../../components/Selector/IconSelector"
 
 export default function InvestigatorList() {
     const { filteredCards, setFilter } = useCardsContext()
@@ -20,21 +20,12 @@ export default function InvestigatorList() {
     return (
         <div className="mx-5">
             <FactionSelector />
-            <div className='d-flex flex-fill'>
-                <div>
-                    <IconSelector type='damage' />
-                </div>
-                <div>
-                    <IconSelector type='horror' />
-                </div>
-                <div>
-
-                    <IconSelector type='willpower' />
-                </div>
+            <div className='mb-1'>
+                <IconSelector type={['damage', 'horror']} />
             </div>
-            <IconSelector type='combat' />
-            <IconSelector type='intellect' />
-            <IconSelector type='agility' />
+            <div className='mb-3'>
+                <IconSelector type={['willpower', 'combat', 'intellect', 'agility',]} />
+            </div>
             <Row xs={3} md={4} className="g-4">
                 {filteredCards
                     .sort((a, b) => a.realName.replace(/[^a-zA-Z0-9 ]/g, '') > b.realName.replace(/[^a-zA-Z0-9 ]/g, ''))

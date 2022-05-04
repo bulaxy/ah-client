@@ -1,9 +1,9 @@
+import { useEffect, useMemo, useState } from "react"
 import { Dropdown, DropdownButton, FormControl, Image, InputGroup } from "react-bootstrap"
 import { useCardsContext } from "../../contexts/CardsContext"
 import { DAMAGE, HORROR, RESOURCE } from '../../constants/imageConstants'
-import { useMemo } from "react"
 import { ArkhamFonts } from '../General/AHTextReplacer'
-
+import { getCardKey } from '../../helpers/cardHelper'
 export function FilterIcons({ type }) {
     switch (type) {
         case 'horror':
@@ -25,33 +25,67 @@ export function FilterIcons({ type }) {
     }
 }
 
-export default function IconSelector({ type }) {
-    const { setFilter, filter } = useCardsContext()
+export function SymbolText(text) {
+    switch (text) {
+        case 'eq':
+            return <>=</>
+        case 'lt':
+            return <>&lt;</>
+        case 'gt':
+            return <>&gt;</>
+        case 'le':
+            return <>&le;</>
+        case 'ge':
+            return <>&ge;</>
+        case 'ne':
+            return <>&ne;</>
+    }
+}
 
-    const onSelect = (faction) => {
+function OperatorDropdown({ operator, setOperator }) {
+    return <DropdownButton
+        variant="outline-secondary"
+        title={SymbolText(operator)}
+        onSelect={setOperator}
+    >
+        <Dropdown.Item className='text-center' eventKey={'eq'} href="#">=</Dropdown.Item>
+        <Dropdown.Item className='text-center' eventKey={'lt'} href="#">&lt;</Dropdown.Item>
+        <Dropdown.Item className='text-center' eventKey={'gt'} href="#">&gt;</Dropdown.Item>
+        <Dropdown.Item className='text-center' eventKey={'ge'} href="#">&ge;</Dropdown.Item>
+        <Dropdown.Item className='text-center' eventKey={'le'} href="#">&le;</Dropdown.Item>
+        <Dropdown.Item className='text-center' eventKey={'ne'} href="#">&ne;</Dropdown.Item>
+    </DropdownButton>
+}
+
+function IconField({ type }) {
+    const { filter, setFilter, getFilterValue } = useCardsContext()
+    const [operator, setOperator] = useState(filter[getCardKey(type)]?.operation || 'eq')
+    const [value, setValue] = useState(filter[getCardKey(type)]?.term)
+
+    useEffect(() => {
         setFilter(prev => ({
             ...prev,
-            factionCode: (faction.factionName == 'All') ? undefined : { term: faction.factionCode, operation: 'eq' },
+            [getCardKey(type)]: value === "" || typeof value == 'undefined' ? undefined : { term: Number(value), operation: operator },
         }))
-    }
+    }, [operator, value])
+
+    return <>
+        <InputGroup.Text>
+            <FilterIcons type={type} />
+        </InputGroup.Text>
+        <OperatorDropdown operator={operator} setOperator={setOperator} />
+        <FormControl onChange={(e) => setValue(e.target.value)} value={value} />
+    </>
+}
+
+export default function IconSelector({ type = [] }) {
 
     return (
-        <InputGroup className="mb-3">
-            <DropdownButton
-                variant="outline-secondary"
-                title={<>
-                    <FilterIcons type={type} />
-                    <span className="fs-6"> =</span>
-                </>}
-                className='align-middle'
-            >
-                <Dropdown.Item href="#">=</Dropdown.Item>
-                <Dropdown.Item href="#">&lt;</Dropdown.Item>
-                <Dropdown.Item href="#">&gt;</Dropdown.Item>
-                <Dropdown.Item href="#">&ge;</Dropdown.Item>
-                <Dropdown.Item href="#">&le;</Dropdown.Item>
-            </DropdownButton>
-            <FormControl aria-label="Text input with dropdown button" />
+        <InputGroup>
+            {type.map(t => (
+                <IconField type={t} />
+            ))}
+
         </InputGroup>
     )
 }

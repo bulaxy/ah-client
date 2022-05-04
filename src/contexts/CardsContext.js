@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useMemo, useState, useCallback } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
 import { useAxios } from "../hooks/useAxios"
-import { toCamelCase } from "../helpers/general"
+import { toCamelCase, capitalize } from "../helpers/general"
 
 const CardsContext = React.createContext()
 
@@ -11,7 +11,6 @@ export const useCardsContext = () => {
 
 export const CardsProvider = ({ children }) => {
     const [cards, setCards] = useLocalStorage('cardList', [])
-    const [trails, setTrails] = useLocalStorage('cardTrails', [])
     const [filter, setFilter] = useState({})
     const [filteredCards, setFilteredCards] = useState([])
     const { data, error, loading } = useAxios('http://localhost:8000/api/arkhamcardlist', 'GET', {}, [cards === null || cards.length == 0 ? true : false])
@@ -19,24 +18,10 @@ export const CardsProvider = ({ children }) => {
     useEffect(() => {
         if (data) {
             setCards(toCamelCase(data.data))
-            // Get Unique Trails by using Set, split by "." and trimming the white spaces
-            setTrails(
-                [...new Set(toCamelCase(data.data)
-                    .map(o => o
-                        ?.traits
-                        ?.split('.')
-                        ?.map(o => o.trim()))
-                    .flat())
-                ].filter(o => !(o === '' || typeof o === 'undefined'))
-            )
         }
     }, [data])
 
-    // console.log(cards, [...new Set(toCamelCase(cards)
-    //     .map(o => o?.factionCode)
-    //     .flat())
-    // ].filter(o => !(o === '' || typeof o === 'undefined'))
-    // )
+    // console.log(cards.filter(o => o.errataDate), [...new Set(cards.map(obj => Object.keys(obj)).flat())])
 
     useEffect(() => {
         setFilteredCards(cards.filter(card => {
@@ -75,9 +60,11 @@ export const CardsProvider = ({ children }) => {
         }))
     }, [filter, cards])
 
-    const getCardByCode = (code) => {
+    const getCardByCode = useCallback((code) => {
         return cards.find(card => card.code === code)
-    }
+    }, [cards])
+
+    const filterType = useMemo(() => Object.keys(filter), [filter])
 
     return (
         <CardsContext.Provider
@@ -86,10 +73,10 @@ export const CardsProvider = ({ children }) => {
                 setFilter,
                 filter,
                 filteredCards,
-                getCardByCode
+                getCardByCode,
+                filterType
             }}
         >
-            {cards?.data?.length}
             {children}
         </CardsContext.Provider>
     )

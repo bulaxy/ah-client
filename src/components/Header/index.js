@@ -27,7 +27,7 @@ export default function Header() {
                         navbarScroll
                     >
                         <Nav.Link href="investigators">Deck Builder</Nav.Link>
-                        <Nav.Link href="action2">Cards Info</Nav.Link>
+                        <Nav.Link href="cards">Cards Info</Nav.Link>
                     </Nav>
                     <ChaosBagModal
                         trigger={
