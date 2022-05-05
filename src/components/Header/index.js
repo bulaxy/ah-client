@@ -1,20 +1,29 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Accordion, Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { BsGearFill, BsBellFill } from "react-icons/bs"
 import { useKeyPress } from "../../hooks/useKeyPress"
 import { GiToken } from 'react-icons/gi'
 import ChaosBagModal from '../Modal/ChaosBagStatsModal'
+import { useToggle } from "../../hooks/useToggle";
 
 export default function Header() {
-    const searchFocus = useKeyPress("/")
+    const { keyDown } = useKeyPress("/")
     const searchInput = useRef(null);
+    const [focus, toggleFocus] = useToggle()
+    const [searchText, setSearchText] = useState()
 
     useEffect(() => {
-        if (searchFocus) {
-            searchInput.current.focus()
-        }
-    }, [searchFocus])
+        // When "/" Keydown, focus onto that search bar 
+        if (!keyDown) return
+        setSearchText(searchText)
+        searchInput.current.focus()
+    }, [keyDown])
 
+    // Only update when it if already focused, so that when "/" is press, it doesnt auto-enter "/" in
+    const onChange = (e) => {
+        if (!focus) return
+        setSearchText(e.target.value)
+    }
     return (
         <Navbar bg="dark" variant="dark" >
             <Container fluid>
@@ -42,7 +51,10 @@ export default function Header() {
                             placeholder="Search"
                             className="me-2"
                             aria-label="Search"
+                            onFocus={toggleFocus}
                             ref={searchInput}
+                            value={searchText}
+                            onChange={onChange}
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>
