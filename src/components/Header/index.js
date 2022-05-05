@@ -2,28 +2,41 @@ import { useEffect, useRef, useState } from "react";
 import { Accordion, Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { BsGearFill, BsBellFill } from "react-icons/bs"
 import { useKeyPress } from "../../hooks/useKeyPress"
-import { useToggle } from "../../hooks/useToggle"
 import { GiToken } from 'react-icons/gi'
 import ChaosBagModal from '../modals/ChaosBagStatsModal'
+import { useCardsContext } from "../../contexts/CardsContext";
 
 export default function Header() {
-    const { keyDown } = useKeyPress("/")
+    const { setAdvanceSearchText } = useCardsContext()
+    const { keyDown, keyUp } = useKeyPress("/")
     const searchInput = useRef(null);
-    const [focus, toggleFocus] = useToggle()
-    const [searchText, setSearchText] = useState()
+    const [focus, setFocus] = useState(false)
+    const [searchText, setSearchText] = useState('')
+    const [keyHold, setKeyHold] = useState(true)
 
     useEffect(() => {
         // When "/" Keydown, focus onto that search bar 
         if (!keyDown) return
-        setSearchText(searchText)
         searchInput.current.focus()
+        // To Bypass prevent Default, needed to use onKeydown, but I only care about when Keyup (to stop multiple "/" being entered to begin with)
+        setKeyHold(false)
     }, [keyDown])
+
+
+    useEffect(() => {
+        // To Bypass prevent Default, needed to use onKeydown, but I only care about when Keyup (to stop multiple "/" being entered to begin with)
+        if (!keyUp) return
+        if (keyHold) return
+        setFocus(true)
+    }, [keyUp])
 
     // Only update when it if already focused, so that when "/" is press, it doesnt auto-enter "/" in
     const onChange = (e) => {
         if (!focus) return
         setSearchText(e.target.value)
+        setAdvanceSearchText(e.target.value)
     }
+
     return (
         <Navbar bg="dark" variant="dark" >
             <Container fluid>
@@ -51,10 +64,11 @@ export default function Header() {
                             placeholder="Search"
                             className="me-2"
                             aria-label="Search"
-                            onFocus={toggleFocus}
                             ref={searchInput}
                             value={searchText}
                             onChange={onChange}
+                            onBlur={() => setFocus(false)}
+                            onClick={() => setFocus(true)}
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>
