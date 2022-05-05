@@ -6,7 +6,7 @@ import { useCardsContext } from "../../contexts/CardsContext"
 export default function CardFlipper({ code }) {
     const { getCardByCode } = useCardsContext()
     const card = getCardByCode(code)
-    console.log(card, code)
+
     if (!card) return <></>
     return (
         <Flippy

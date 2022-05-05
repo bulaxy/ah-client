@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState, useCallback } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
 import { useAxios } from "../hooks/useAxios"
-import { toCamelCase, capitalize } from "../helpers/general"
+import { objectKeyToCamelCase, capitalize } from "../helpers/general"
 
 const CardsContext = React.createContext()
 
@@ -17,11 +17,12 @@ export const CardsProvider = ({ children }) => {
 
     useEffect(() => {
         if (data) {
-            setCards(toCamelCase(data.data))
+            setCards(objectKeyToCamelCase(data.data))
         }
     }, [data])
 
-    // console.log(cards.filter(o => o.errataDate), [...new Set(cards.map(obj => Object.keys(obj)).flat())])
+    // console.log(cards, [...new Set(cards.map(obj => Object.keys(obj).map(key => JSON.stringify({ key, type: typeof obj[key] }))).flat())].map(json => JSON.parse(json)))
+    console.log(filteredCards, filter)
 
     useEffect(() => {
         setFilteredCards(cards.filter(card => {
@@ -52,6 +53,9 @@ export const CardsProvider = ({ children }) => {
                         result.push((card[key] != filter[key].term))
                         break;
                     case 'includes':
+                        result.push(card[key].includes(filter[key].term))
+                        break
+                    case 'notIncludes':
                         result.push(card[key].includes(filter[key].term))
                         break
                 }

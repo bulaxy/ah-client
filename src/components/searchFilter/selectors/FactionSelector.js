@@ -1,6 +1,6 @@
 import { ButtonGroup, Button, Image, ToggleButton } from "react-bootstrap"
-import { useCardsContext } from "../../contexts/CardsContext"
-import { FACTION_LIST } from "../../constants/cardConstants"
+import { useCardsContext } from "../../../contexts/CardsContext"
+import { FACTION_LIST } from "../../../constants/cardConstants"
 import { useState } from "react"
 
 export default function FactionSelector() {
@@ -12,8 +12,10 @@ export default function FactionSelector() {
             factionCode: (faction.factionName == 'All') ? undefined : { term: faction.factionCode, operation: 'eq' },
         }))
     }
-
+    // Tab Index being -1 so it will skip over when tabbing
+    // Using checkbox Button to select faction
     return (<ButtonGroup className="py-2 d-flex ">
+
         {FACTION_LIST.map(faction =>
             <ToggleButton
                 key={`factionFilter-${faction.factionCode}`}
@@ -21,6 +23,7 @@ export default function FactionSelector() {
                 variant="outline-secondary"
                 size='sm'
                 type="checkbox"
+                tabIndex='-1'
                 checked={filter.factionCode?.term == faction.factionCode}
                 onClick={() => onSelect(faction)}
             >

@@ -24,8 +24,8 @@ export const useCardFilterDropdownOption = (key, seperator) => {
       .filter(o => !(o === '' || typeof o === 'undefined'))
 
     // Remove Duplicate using set, and map it to dropdown input (text,value)
-    setOptions([...new Set(arr)].map(o => ({ text: o, value: o })))
+    setOptions([...new Set(arr)].map(o => ({ label: o, value: o })))
   }, [cards])
 
-  return { options }
+  return options
 };
