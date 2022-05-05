@@ -1,6 +1,6 @@
 import { Modal, Button, Image, ListGroup, Container, Col, Row, Accordion } from "react-bootstrap";
 import { useToggle } from '../../..//hooks/useToggle'
-import { useCardsContext } from "../../..g/contexts/CardsContext"
+import { useCardsContext } from "../../../contexts/CardsContext"
 import CardFlipper from "../../general/CardFlipper"
 
 export default function InvestigatorDetailModal(props) {
