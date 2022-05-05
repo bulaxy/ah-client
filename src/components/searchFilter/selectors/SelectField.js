@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Dropdown, DropdownButton, FormControl, Image, InputGroup } from "react-bootstrap"
 import Select from "react-select"
-import OperatorDropdown from '../../general/OperationDropdown'
 import { useCardsContext } from "../../../contexts/CardsContext"
 import { useCardFilterDropdownOption } from '../../../hooks/useCardFilterDropdownOption'
 export default function SelectField({ type = {} }) {

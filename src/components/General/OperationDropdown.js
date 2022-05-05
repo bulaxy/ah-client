@@ -1,4 +1,5 @@
 import { DropdownButton, Dropdown } from 'react-bootstrap'
+
 const dropdownItems = [
     { operator: 'eq', text: <>=</>, type: ['options', 'number', 'boolean'] },
     { operator: 'lt', text: <>&lt;</>, type: ['number'] },

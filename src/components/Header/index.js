@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Accordion, Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { BsGearFill, BsBellFill } from "react-icons/bs"
 import { useKeyPress } from "../../hooks/useKeyPress"
+import { useToggle } from "../../hooks/useToggle"
 import { GiToken } from 'react-icons/gi'
 import ChaosBagModal from '../modals/ChaosBagStatsModal'
 
