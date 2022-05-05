@@ -73,6 +73,13 @@ const sumArr = (arr, key) => {
     return arr.reduce((a, b) => a + b, 0)
 }
 
+const arrayToObject = (arr, key) => {
+    return arr.reduce((obj, item) => {
+        obj[item[key]] = item
+        return obj
+    }, {})
+}
+
 export {
     groupBy,
     mapToKey,
@@ -80,5 +87,6 @@ export {
     camelStringToSpace,
     sumArr,
     capitalize,
+    arrayToObject,
 }
 

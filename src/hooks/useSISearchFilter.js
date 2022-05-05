@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { useCardsContext } from "../contexts/CardsContext";
+import { useCardsFilter } from "./useCardsFilter";
 
 const SMART_KEY_PAIR = {
   v: { value: 'flavor', defaultOperator: 'includes' },
@@ -30,16 +31,53 @@ const SMART_KEY_PAIR = {
 export const useSISearchFilter = (searchTerms) => {
   const { cards } = useCardsContext()
 
-  return useMemo(() => {
-    cards.filter(card => {
+  const filter = useMemo(() => {
+    return cards.filter(card => {
       searchTerms
         // Map to split by space but exclude "" 
         .match("^([^:]+)(:|>|<)([^:]+)")
-        // Split by first group being either 1-2 charact long before the operator, ":" or ">" or ">", then the rest of the string being the terms
+        // Split by first group being either 1-2 character long before the operator, ":" or ">" or ">", then the rest of the string being the terms
         .map(term => term.match('^(.{1,2})(:|>|<)(.*)'))
+        // Convert into array Object where cards normal filter uses
+        .map(matchesArr => {
+          // Input validation on the format
+          if (matchesArr.length !== 4) return undefined
+          let smartKeyObject = SMART_KEY_PAIR[matchesArr[1]]
+          // If no matches key, escape
+          if (typeof smartKeyObject == 'undefined') return undefined
+          let operator
+          switch (matchesArr[2]) {
+            case ":":
+              operator = SMART_KEY_PAIR[matchesArr[1]].defaultOperator
+              break
+            case ">":
+              operator = 'gt'
+              break
+            case "<":
+              operator = 'lt'
+              break
+            default:
+              operator = undefined
+          }
+          // No matching operator (should never happen?), escape
+          if (!operator) return undefined
+
+          return {
+            // First part being the smart key value pair value
+            key: smartKeyObject.value,
+            operation: operator,
+            term: matchesArr[3],
+          }
+        })
     })
   }, [cards, text])
 
+  // Passing filter to the filter and return the updated Array
+  const filteredCards = useCardsFilter(filter)
+
+  console.log(filter, filteredCards)
+
+  return filteredCards
 };
 
 
