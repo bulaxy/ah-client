@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react"
 import { Dropdown, DropdownButton, FormControl, Image, InputGroup } from "react-bootstrap"
-import { useCardsContext } from "../../contexts/CardsContext"
-import { DAMAGE, HORROR, RESOURCE } from '../../constants/imageConstants'
-import { ArkhamFonts } from '../General/AHTextReplacer'
-import { getCardKey } from '../../helpers/cardHelper'
+import { useCardsContext } from "../../../contexts/CardsContext"
+import { DAMAGE, HORROR, RESOURCE } from '../../../constants/imageConstants'
+import { ArkhamFonts } from '../../general/AHTextReplacer'
+import { getCardKey } from '../../../helpers/cardHelper'
+import { symbolText } from '../../../constants'
+
 export function FilterIcons({ type }) {
     switch (type) {
         case 'horror':
@@ -22,30 +24,15 @@ export function FilterIcons({ type }) {
             return <ArkhamFonts text={'agility'} />
         case 'wild':
             return <ArkhamFonts text={'wild'} />
-    }
-}
-
-export function SymbolText(text) {
-    switch (text) {
-        case 'eq':
-            return <>=</>
-        case 'lt':
-            return <>&lt;</>
-        case 'gt':
-            return <>&gt;</>
-        case 'le':
-            return <>&le;</>
-        case 'ge':
-            return <>&ge;</>
-        case 'ne':
-            return <>&ne;</>
+        default:
+            return <span>{type}</span>
     }
 }
 
 function OperatorDropdown({ operator, setOperator }) {
     return <DropdownButton
         variant="outline-secondary"
-        title={SymbolText(operator)}
+        title={symbolText[operator]}
         onSelect={setOperator}
     >
         <Dropdown.Item className='text-center' eventKey={'eq'} href="#">=</Dropdown.Item>
@@ -57,7 +44,7 @@ function OperatorDropdown({ operator, setOperator }) {
     </DropdownButton>
 }
 
-function IconField({ type }) {
+export function IconField({ type }) {
     const { filter, setFilter, getFilterValue } = useCardsContext()
     const [operator, setOperator] = useState(filter[getCardKey(type)]?.operation || 'eq')
     const [value, setValue] = useState(filter[getCardKey(type)]?.term)

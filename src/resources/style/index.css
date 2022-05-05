@@ -6,3 +6,7 @@
 .arkham-icons {
     font-family:'arkham-icons'
 }
+
+.react-select > div {
+    margin: -1px;
+}

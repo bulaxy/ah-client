@@ -3,7 +3,7 @@ import { Accordion, Container, Nav, Navbar, Form, FormControl, Button } from "re
 import { BsGearFill, BsBellFill } from "react-icons/bs"
 import { useKeyPress } from "../../hooks/useKeyPress"
 import { GiToken } from 'react-icons/gi'
-import ChaosBagModal from '../Modal/ChaosBagStatsModal'
+import ChaosBagModal from '../modals/ChaosBagStatsModal'
 
 export default function Header() {
     const searchFocus = useKeyPress("/")
