@@ -35,9 +35,21 @@ export const useSISearchFilter = (searchTerms) => {
     return cards.filter(card => {
       searchTerms
         // Map to split by space but exclude "" 
-        .match("^([^:]+)(:|>|<)([^:]+)")
+        /*  
+        ------------------------------------------------------------
+        Regex Breakdown
+        - Capture any "?:" 
+        - [^\s'"]+" any group split by space that happens 0 or more times (+)
+        - Or ""[^"]*"" capture any character start with '"' until the end of '"' but does not end on itself [^"]
+        - Repeat the same thing for single quotation mark
+
+        - Review - Whether should capture single quotation mark is another question
+        ------------------------------------------------------------
+        */
+        // .match(/(?:[^\s"']+|"[^"]*")+/g)
+        .match(/(?:[^\s"']+|["][^"]*"|'[^']*')+/g)
         // Split by first group being either 1-2 character long before the operator, ":" or ">" or ">", then the rest of the string being the terms
-        .map(term => term.match('^(.{1,2})(:|>|<)(.*)'))
+        .map(term => term.match(/^(.{1,2})(:|>|<)(.*)/)) // or '^(.{1,2})(:|>|<)(.*)'
         // Convert into array Object where cards normal filter uses
         .map(matchesArr => {
           // Input validation on the format
