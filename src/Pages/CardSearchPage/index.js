@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap'
 import { useState } from 'react'
 import { useCardsFilter } from '../../hooks/useCardsFilter'
 
-export default function CardSearchPage() {
+export default function CardSearchPage(props) {
     const [filter, setFilter] = useState({})
     const cards = useCardsFilter(filter)
 

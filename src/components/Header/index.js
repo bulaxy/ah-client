@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { Accordion, Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
-import { BsGearFill, BsBellFill } from "react-icons/bs"
+import { Container, Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { useKeyPress } from "../../hooks/useKeyPress"
 import { GiToken } from 'react-icons/gi'
 import ChaosBagModal from '../modals/ChaosBagStatsModal'
-import { useCardsContext } from "../../contexts/CardsContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-    const { setAdvanceSearchText } = useCardsContext()
     const { keyDown, keyUp } = useKeyPress("/")
+    const enterKeyPress = useKeyPress("Enter")
     const searchInput = useRef(null);
     const [focus, setFocus] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [keyHold, setKeyHold] = useState(true)
+    const navigate = useNavigate()
 
     useEffect(() => {
         // When "/" Keydown, focus onto that search bar 
@@ -34,8 +34,15 @@ export default function Header() {
     const onChange = (e) => {
         if (!focus) return
         setSearchText(e.target.value)
-        setAdvanceSearchText(e.target.value)
     }
+
+    const onSearch = () => {
+        navigate(`${searchText}`)
+    }
+
+    // useEffect(() => {
+    //     navigate(`${searchText}`)
+    // }, [enterKeyPress.keyDown])
 
     return (
         <Navbar bg="dark" variant="dark" >
@@ -49,7 +56,7 @@ export default function Header() {
                         navbarScroll
                     >
                         <Nav.Link href="investigators">Deck Builder</Nav.Link>
-                        <Nav.Link href="cards">Cards Info</Nav.Link>
+                        <Nav.Link href="/">Cards Info</Nav.Link>
                     </Nav>
                     <ChaosBagModal
                         trigger={
@@ -70,7 +77,7 @@ export default function Header() {
                             onBlur={() => setFocus(false)}
                             onClick={() => setFocus(true)}
                         />
-                        <Button variant="outline-success">Search</Button>
+                        <Button variant="outline-success" onClick={onSearch}>Search</Button>
                     </Form>
                 </Navbar.Collapse>
             </Container>

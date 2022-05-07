@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Modal, Button, Image, ListGroup, Container, Col, Row, Accordion } from "react-bootstrap";
 import { useCardsContext } from "../../../contexts/CardsContext"
 import CardFlipper from "../../general/CardFlipper"
@@ -6,7 +6,7 @@ import CardFlipper from "../../general/CardFlipper"
 export default function CardModal(props) {
     const { trigger = <></>, triggerProps, code, open, setOpen = () => { } } = props
     const [show, setShow] = useState(false)
-    const { getCardByCode } = useCardsContext()
+    const { getCardByCode, getWhoCanPlayThis } = useCardsContext()
     const card = getCardByCode(code)
 
 
@@ -18,6 +18,8 @@ export default function CardModal(props) {
         setShow(value)
         setOpen(value)
     }
+
+    const playableBy = useMemo(() => getWhoCanPlayThis(code), [code])
 
     if (typeof card == 'undefined') return
 
@@ -75,7 +77,7 @@ export default function CardModal(props) {
                             </Accordion.Body>
                         </Accordion.Item>
                         {card.boundedCard &&
-                            <Accordion.Item eventKey={4}>
+                            <Accordion.Item eventKey={5}>
                                 <Accordion.Header>Bounded To</Accordion.Header>
                                 <Accordion.Body>
                                     <Row>
@@ -93,6 +95,20 @@ export default function CardModal(props) {
                                 <Accordion.Header>Linked To Card</Accordion.Header>
                                 <Accordion.Body>
                                     <CardFlipper code={card.linkedToCode} />
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        }
+                        {playableBy.length > 0 &&
+                            <Accordion.Item eventKey={5}>
+                                <Accordion.Header>Playable By</Accordion.Header>
+                                <Accordion.Body>
+                                    <Row>
+                                        {playableBy?.map(card =>
+                                            <Col>
+                                                <CardFlipper code={card.code} />
+                                            </Col>
+                                        )}
+                                    </Row>
                                 </Accordion.Body>
                             </Accordion.Item>
                         }

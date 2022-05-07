@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Dropdown, DropdownButton, FormControl, Image, InputGroup } from "react-bootstrap"
 import Select from "react-select"
 import { useCardsContext } from "../../../contexts/CardsContext"
@@ -8,6 +8,8 @@ export default function SelectField({ type = {}, filter, setFilter }) {
     const [operator, setOperator] = useState(filter[type]?.operation || 'includes')
     const [value, setValue] = useState(filter[type]?.term)
     const options = useCardsFilterDropdownOption(type.value, type.splitter)
+    const inputRef = useRef(null)
+
     useEffect(() => {
         setFilter(prev => ({
             ...prev,
@@ -15,13 +17,17 @@ export default function SelectField({ type = {}, filter, setFilter }) {
         }))
     }, [operator, value])
 
+    useEffect(() => {
+        inputRef.current.focus()
+    }, [])
+
     return <>
         <InputGroup.Text>
             {type.label}
         </InputGroup.Text>
         {/* <OperatorDropdown {...{ operator, setOperator }} /> */}
         <div className="react-select form-control p-0">
-            <Select options={options} isMulti onChange={(arrObj) => setValue(arrObj.map(o => o.value))} />
+            <Select ref={inputRef} options={options} isMulti onChange={(arrObj) => setValue(arrObj.map(o => o.value))} />
         </div>
     </>
 }

@@ -50,7 +50,13 @@ export const useCardsFilter = (filter) => {
                     case 'includes':
                         // If term is an array, filter by the options 
                         if (filterObj[key].term instanceof Array) {
-                            result.push(filterObj[key].term.includes(card[key]))
+                            // If key exists to begin with
+                            if (card[key]) {
+                                // Loop through each one, to see whether it is a match
+                                for (let i in filterObj[key].term) {
+                                    result.push(card[key].includes(filterObj[key].term[i]))
+                                }
+                            }
                         } else {
                             // If term is not an array, selecting includes from the word 
                             result.push(card[key]?.toLowerCase()?.includes(filterObj[key].term.toLowerCase()))
@@ -61,6 +67,7 @@ export const useCardsFilter = (filter) => {
                         break
                 }
             })
+            // Not sure whether this is right?
             return result.indexOf(false) === -1
         })
     }, [cards, filter])
