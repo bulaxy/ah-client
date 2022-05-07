@@ -7,7 +7,6 @@ import { PLAYER_CARD_BACK } from "../../constants/imageConstants"
 export default function CardFlipper({ code }) {
     const { getCardByCode } = useCardsContext()
     const card = getCardByCode(code)
-    console.log('**', code, card)
     const backSrc = useMemo(() => {
         if (!card) return ''
         if (card.backimagesrc) return 'https://arkhamdb.com/' + card.backimagesrc

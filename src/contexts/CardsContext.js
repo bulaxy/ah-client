@@ -27,6 +27,7 @@ export const CardsProvider = ({ children }) => {
 
     const getWhoCanPlayThis = useCallback((code) => {
         const card = getCardByCode(code)
+        if (!card) return []
         return cards
             .filter(o => o.deckOptions && o.typeCode === "investigator")
             .filter(o => {
@@ -68,7 +69,6 @@ export const CardsProvider = ({ children }) => {
                         if (!(card.xp >= optionObj.level.min && card.xp <= optionObj.level.max)) continue
                     }
 
-                    // if (o.code == '07002') console.log(optionObj.trait && card.traits, optionObj, deckOptions)
                     // If type is true
                     if (optionObj.type && card.typeCode) {
                         if (!optionObj.type.includes(card.typeCode)) continue

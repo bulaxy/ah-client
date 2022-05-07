@@ -74,7 +74,6 @@ const sumArr = (arr, key) => {
 }
 
 const arrayToObject = (arr, key) => {
-    console.log(arr)
     return arr?.reduce((obj, item) => {
         obj[item[key]] = item
         return obj
