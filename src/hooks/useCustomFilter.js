@@ -4,7 +4,6 @@ import { FILTERABLE_KEY_OPTIONS } from '../constants/cardConstants'
 
 export const useCustomFilter = (setFilter) => {
     const [searchFilter, setSearchFilter] = useState([])
-    const [viewType, setViewType] = useState()
     const [filterOptions, setFilterOptions] = useState(FILTERABLE_KEY_OPTIONS.filter(o => o.type).map(o => ({ ...o, active: 1, label: camelStringToSpace(o.label) })))
 
     const addFilter = (keyObject) => {
@@ -28,8 +27,6 @@ export const useCustomFilter = (setFilter) => {
         filterOptions: filterOptions.filter(o => o.active),
         searchFilter,
         setSearchFilter,
-        viewType,
-        setViewType,
         addFilter,
         clearFilter,
         removeFilter,

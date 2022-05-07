@@ -1,5 +1,5 @@
 
-import CardSearchFilters from '../../components/searchFilter/CustomSearchFilter'
+import CustomSearchFilter from '../../components/searchFilter/CustomSearchFilter'
 import CardsResult from '../../components/lists/CardList'
 import { Container } from 'react-bootstrap'
 import { useState } from 'react'
@@ -11,7 +11,7 @@ export default function CardSearchPage() {
 
     return (
         <Container >
-            <CardSearchFilters filter={filter} setFilter={setFilter} />
+            <CustomSearchFilter filter={filter} setFilter={setFilter} />
             <CardsResult cards={cards} />
         </Container>
     )

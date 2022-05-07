@@ -1,8 +1,8 @@
 import { useEffect } from "react"
 import { Card, Col, Row, Button, InputGroup, FormControl, Dropdown, DropdownButton } from "react-bootstrap"
 import { useCardsContext } from "../../contexts/CardsContext"
-import InvestigatorDetailModal from "../modals/CardDetailModal/InvestigatorDetailModal"
 import { FactionIcons } from '../../components/general/CommonImages'
+import CardModal from "../modals/CardModal"
 
 export default function InvestigatorList({ cards = [] }) {
     return (
@@ -11,7 +11,7 @@ export default function InvestigatorList({ cards = [] }) {
                 .sort((a, b) => a.realName.replace(/[^a-zA-Z0-9 ]/g, '') > b.realName.replace(/[^a-zA-Z0-9 ]/g, ''))
                 .map((card, idx) => (
                     <Col key={card.code}>
-                        <InvestigatorDetailModal code={card.code} trigger={
+                        <CardModal code={card.code} trigger={
                             <Card>
                                 <Card.Header className={`p-1  bg-${card.factionCode == 'neutral' ? 'light' : card.factionCode}`}>
                                     {FactionIcons[card.factionCode]({ className: 'mx-2 ', style: { width: '1.25em' } })}

@@ -2,12 +2,12 @@ import { useEffect, useMemo, useState } from "react"
 import { Dropdown, DropdownButton, FormControl, Image, InputGroup } from "react-bootstrap"
 import Select from "react-select"
 import { useCardsContext } from "../../../contexts/CardsContext"
-import { useCardFilterDropdownOption } from '../../../hooks/useCardFilterDropdownOption'
+import { useCardsFilterDropdownOption } from '../../../hooks/useCardsFilterDropdownOption'
 
 export default function SelectField({ type = {}, filter, setFilter }) {
     const [operator, setOperator] = useState(filter[type]?.operation || 'includes')
     const [value, setValue] = useState(filter[type]?.term)
-    const options = useCardFilterDropdownOption(type.value, type.splitter)
+    const options = useCardsFilterDropdownOption(type.value, type.splitter)
     useEffect(() => {
         setFilter(prev => ({
             ...prev,

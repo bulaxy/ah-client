@@ -7,15 +7,14 @@ import { useSISearchFilter } from './useSISearchFilter'
 export const useCardsFilter = (filter) => {
     const { cards } = useCardsContext()
     const { getSIFilter } = useSISearchFilter()
-
     return useMemo(() => {
         let filterObj
         if (filter instanceof Array) {
             filterObj = arrayToObject(filter, 'key')
         } else if (filter instanceof Object) {
             filterObj = filter
-        } else if (filter instanceof String) {
-            filterObj = getSIFilter(filter)
+        } else if (typeof filter == 'string') {
+            filterObj = arrayToObject(getSIFilter(filter), 'key')
         } else {
             // Not sure when will it get here, ignore for now, return whole array
             return cards
@@ -31,7 +30,7 @@ export const useCardsFilter = (filter) => {
                 switch (filterObj[key].operation) {
                     // Using shorten name like the way sharepoint is doing it.
                     case 'eq':
-                        result.push(card[key] === filterObj[key].term)
+                        result.push(card[key] == filterObj[key].term)
                         break;
                     case 'lt':
                         result.push(card[key] < filterObj[key].term)
@@ -49,7 +48,13 @@ export const useCardsFilter = (filter) => {
                         result.push((card[key] != filterObj[key].term))
                         break;
                     case 'includes':
-                        result.push(card[key].includes(filterObj[key].term))
+                        // If term is an array, filter by the options 
+                        if (filterObj[key].term instanceof Array) {
+                            result.push(filterObj[key].term.includes(card[key]))
+                        } else {
+                            // If term is not an array, selecting includes from the word 
+                            result.push(card[key]?.toLowerCase()?.includes(filterObj[key].term.toLowerCase()))
+                        }
                         break
                     case 'notIncludes':
                         result.push(card[key].includes(filterObj[key].term))

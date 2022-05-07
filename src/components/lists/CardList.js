@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { Card, Col, Fade, ListGroup, Row, Spinner, Table } from "react-bootstrap"
-import InvestigatorDetailModal from "../modals/CardDetailModal/InvestigatorDetailModal"
 import { useEventListener } from '../../hooks/useEventListener'
 import { FactionIcons } from '../../components/general/CommonImages'
 import { useToggle } from "../../hooks/useToggle"
+import CardModal from "../modals/CardModal"
 
 export default function CardList({ cards = [] }) {
     const [loadedCards, setLoadedCards] = useState([])
@@ -34,7 +34,7 @@ export default function CardList({ cards = [] }) {
     if (viewType === 'table')
         return (
             <>
-                <InvestigatorDetailModal code={cardCode} open={cardCode !== -1} setOpen={setModalOpen} />
+                <CardModal code={cardCode} open={cardCode !== -1} setOpen={setModalOpen} />
                 <Table>
                     <thead>
                         <tr>
@@ -50,7 +50,10 @@ export default function CardList({ cards = [] }) {
                             <Fade key={'Animation-' + card.code} appear={true} in={true}>
                                 <tr key={card.code} onClick={() => setCardCode(card.code)} className={`bg-${card.factionCode == 'neutral' ? 'light' : card.factionCode}`}>
                                     <td>{card.name} {card.xp > 0 && <>({card.xp})</>}</td>
-                                    <td>{FactionIcons[card.factionCode]({ className: 'mx-2 ', style: { width: '1.25em' } })}{card.factionName}</td>
+                                    <td>
+                                        {FactionIcons[card.factionCode]?.({ className: 'mx-2 ', style: { width: '1.25em' } })}
+                                        {card.factionName}
+                                    </td>
                                     <td>{card.cost}</td>
                                     <td>{card.typeName}</td>
                                     <td>{card.traits}</td>

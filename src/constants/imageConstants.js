@@ -25,3 +25,6 @@ export const DAMAGE = require("../resources/icons/damage.png")
 export const HORROR = require("../resources/icons/horror.png")
 export const RESOURCE = require("../resources/icons/resource.png")
 
+/* Card Back Constants */
+export const PLAYER_CARD_BACK = require("../resources/images/player_card_back.jpg")
+export const ENCOUNTER_CARD_BACK = require("../resources/images/encounter_card_back.jpg")

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useCardsContext } from "../contexts/CardsContext";
 
-export const useCardFilterDropdownOption = (key, seperator) => {
+export const useCardsFilterDropdownOption = (key, seperator) => {
   // Maybe  storing it locally instead? ideally probably store it on server side to reduce client side loading since therre might be a lot of fields might need to go through this.
   const [options, setOptions] = useState([])
   const { cards } = useCardsContext()
