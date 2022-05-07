@@ -252,6 +252,11 @@ export const ALL_KEYS = [
     "alternateOfName"
 ]
 
+export const INVESTIGATOR_FILTER = {
+    typeCode: { term: 'investigator', operation: 'eq' },
+    hidden: { term: 1, operation: 'ne' }
+}
+
 export const FACTION_LIST = [
     ALL,
     GUARDIAN,

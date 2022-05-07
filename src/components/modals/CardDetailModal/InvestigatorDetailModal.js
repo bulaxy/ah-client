@@ -1,19 +1,30 @@
+import { useEffect, useState } from "react";
 import { Modal, Button, Image, ListGroup, Container, Col, Row, Accordion } from "react-bootstrap";
-import { useToggle } from '../../..//hooks/useToggle'
 import { useCardsContext } from "../../../contexts/CardsContext"
 import CardFlipper from "../../general/CardFlipper"
 
 export default function InvestigatorDetailModal(props) {
-    const { trigger, code } = props
-    const [show, toggleShow] = useToggle(false)
+    const { trigger = <></>, triggerProps, code, open, setOpen = () => { } } = props
+    const [show, setShow] = useState(false)
     const { getCardByCode } = useCardsContext()
     const card = getCardByCode(code)
+
+
+    useEffect(() => {
+        setShow(open)
+    }, [open])
+
+    const toggleShow = (value) => {
+        setShow(value)
+        setOpen(value)
+    }
+
+    if (typeof card == 'undefined') return
     return (<>
-        <div onClick={toggleShow}>
+        <div onClick={toggleShow} {...triggerProps}>
             {{ ...trigger }}
         </div>
         {show &&
-
             <Modal show={show} onHide={toggleShow} size={'lg'}>
                 <Modal.Body>
                     <CardFlipper code={card.code} />
@@ -35,7 +46,7 @@ export default function InvestigatorDetailModal(props) {
                             <Accordion.Body>
                                 <Container>
                                     <Row>
-                                        {Object.keys(card['deckRequirements']?.card).map(signature => <Col><CardFlipper code={signature} /></Col>)}
+                                        {Object.keys(card?.['deckRequirements']?.card ?? {})?.map(signature => <Col><CardFlipper code={signature} /></Col>)}
                                     </Row>
                                 </Container>
                             </Accordion.Body>

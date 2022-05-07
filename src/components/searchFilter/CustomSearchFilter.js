@@ -5,26 +5,24 @@ import FactionSelector from './selectors/FactionSelector'
 import Select from 'react-select'
 import { Button, InputGroup } from 'react-bootstrap'
 import FilterRow from './FilterRow'
-const customStyles = {
-    control: () => ({
-        // none of react-select's styles are passed to <Control />
-        width: 200,
-    })
-}
-export default function CustomSearchFilter() {
-    const { filterOptions, addFilter, clearFilter, searchFilter, removeFilter, viewType, setViewType } = useCardsSearchContext()
+import { useCustomFilter } from '../../hooks/useCustomFilter'
 
+export default function CustomSearchFilter({ filter, setFilter }) {
+    const customFilter = useCustomFilter(setFilter)
+    console.log(filter)
     return (
         <>
-            <FactionSelector />
-            <div style={{ maxHeight: 200 }} className='overflow-auto mb-2'>
-                {searchFilter.map(o => <FilterRow filterKey={o} />)}
+            <FactionSelector filter={filter} setFilter={setFilter} />
+            <div className='mb-2'>
+                {customFilter.searchFilter.map(o => (
+                    <FilterRow key={'filterRow' - o} filterKey={o} filterOptions={{ ...customFilter, filter, setFilter }} />
+                ))}
             </div>
             <InputGroup>
                 <div className="react-select form-control p-0">
-                    <Select placeholder='Add Filter' options={filterOptions} value={''} onChange={addFilter} />
+                    <Select placeholder='Add Filter' options={customFilter.filterOptions} value={''} onChange={customFilter.addFilter} />
                 </div>
-                <Button onClick={clearFilter} className='btn-danger'>Clear All Filter</Button>
+                <Button onClick={customFilter.clearFilter} className='btn-danger'>Clear All Filter</Button>
             </InputGroup>
         </>
     )

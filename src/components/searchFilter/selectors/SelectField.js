@@ -3,8 +3,8 @@ import { Dropdown, DropdownButton, FormControl, Image, InputGroup } from "react-
 import Select from "react-select"
 import { useCardsContext } from "../../../contexts/CardsContext"
 import { useCardFilterDropdownOption } from '../../../hooks/useCardFilterDropdownOption'
-export default function SelectField({ type = {} }) {
-    const { filter, setFilter, getFilterValue } = useCardsContext()
+
+export default function SelectField({ type = {}, filter, setFilter }) {
     const [operator, setOperator] = useState(filter[type]?.operation || 'includes')
     const [value, setValue] = useState(filter[type]?.term)
     const options = useCardFilterDropdownOption(type.value, type.splitter)
@@ -21,7 +21,7 @@ export default function SelectField({ type = {} }) {
         </InputGroup.Text>
         {/* <OperatorDropdown {...{ operator, setOperator }} /> */}
         <div className="react-select form-control p-0">
-            <Select options={options} isMulti onChange={({ value }) => setValue(value)} />
+            <Select options={options} isMulti onChange={(arrObj) => setValue(arrObj.map(o => o.value))} />
         </div>
     </>
 }

@@ -4,7 +4,7 @@ import { useCardsContext } from "../../../contexts/CardsContext"
 import { DAMAGE, HORROR, RESOURCE } from '../../../constants/imageConstants'
 import { ArkhamFonts } from '../../general/AHTextReplacer'
 import { getCardKey } from '../../../helpers/cardHelper'
-import { symbolText } from '../../../constants'
+import OperatorDropdown from '../../general/OperationDropdown'
 
 export function FilterIcons({ type }) {
     switch (type) {
@@ -29,23 +29,7 @@ export function FilterIcons({ type }) {
     }
 }
 
-function OperatorDropdown({ operator, setOperator }) {
-    return <DropdownButton
-        variant="outline-secondary"
-        title={symbolText[operator]}
-        onSelect={setOperator}
-    >
-        <Dropdown.Item className='text-center' eventKey={'eq'} href="#">=</Dropdown.Item>
-        <Dropdown.Item className='text-center' eventKey={'lt'} href="#">&lt;</Dropdown.Item>
-        <Dropdown.Item className='text-center' eventKey={'gt'} href="#">&gt;</Dropdown.Item>
-        <Dropdown.Item className='text-center' eventKey={'ge'} href="#">&ge;</Dropdown.Item>
-        <Dropdown.Item className='text-center' eventKey={'le'} href="#">&le;</Dropdown.Item>
-        <Dropdown.Item className='text-center' eventKey={'ne'} href="#">&ne;</Dropdown.Item>
-    </DropdownButton>
-}
-
-export function IconField({ type }) {
-    const { filter, setFilter, getFilterValue } = useCardsContext()
+export function IconField({ type, filter, setFilter }) {
     const [operator, setOperator] = useState(filter[getCardKey(type)]?.operation || 'eq')
     const [value, setValue] = useState(filter[getCardKey(type)]?.term)
 
@@ -65,14 +49,12 @@ export function IconField({ type }) {
     </>
 }
 
-export default function IconSelector({ type = [] }) {
-
+export default function IconSelector({ type = [], filter = {}, setFilter = () => { } }) {
     return (
         <InputGroup>
             {type.map(t => (
-                <IconField type={t} />
+                <IconField type={t} filter={filter} setFilter={setFilter} />
             ))}
-
         </InputGroup>
     )
 }

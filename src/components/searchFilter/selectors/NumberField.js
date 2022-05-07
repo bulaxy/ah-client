@@ -4,8 +4,7 @@ import { useCardsContext } from "../../../contexts/CardsContext"
 import OperatorDropdown from '../../general/OperationDropdown'
 import { getCardKey } from '../../../helpers/cardHelper'
 
-export default function NumberField({ type = {} }) {
-    const { filter, setFilter, getFilterValue } = useCardsContext()
+export default function NumberField({ type = {}, filter, setFilter }) {
     const [operator, setOperator] = useState(filter[type]?.operation || 'eq')
     const [value, setValue] = useState(filter[type]?.term)
 

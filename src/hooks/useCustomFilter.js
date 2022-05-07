@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import { camelStringToSpace } from '../helpers/general'
 import { FILTERABLE_KEY_OPTIONS } from '../constants/cardConstants'
 
-export const useFilterSelector = (setFilter) => {
+export const useCustomFilter = (setFilter) => {
     const [searchFilter, setSearchFilter] = useState([])
     const [viewType, setViewType] = useState()
     const [filterOptions, setFilterOptions] = useState(FILTERABLE_KEY_OPTIONS.filter(o => o.type).map(o => ({ ...o, active: 1, label: camelStringToSpace(o.label) })))

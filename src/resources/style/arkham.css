@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'arkham-icons';
+    src: url(../fonts/arkham-icons.otf);
+}
+
+.arkham-icons {
+    font-family:'arkham-icons'
+}
+
+
+.bg-guardian{
+    background-color:  rgba(43, 128, 237, 0.2) !important
+}
+
+.bg-mystic{
+    background-color: rgba(125, 80, 215, 0.3) !important;
+}
+
+.bg-rogue{
+    background-color:  rgba(16, 113, 22, 0.2) !important
+}
+
+.bg-seeker{
+    background-color:  rgba(255, 143, 63, 0.2) !important
+}
+
+.bg-survivor{
+        background-color:  rgba(204, 48, 56, 0.2) !important
+}

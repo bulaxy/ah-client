@@ -1,30 +1,25 @@
-import { useEffect } from "react"
-import { useCardsContext } from "../../contexts/CardsContext"
+import { useEffect, useState } from "react"
 import InvestigatorList from "../../components/lists/InvestigatorList"
 import FactionSelector from "../../components/searchFilter/selectors/FactionSelector"
 import IconSelector from "../../components/searchFilter/selectors/IconSelector"
 import { Container } from "react-bootstrap"
+import { useCardsFilter } from "../../hooks/useCardsFilter"
+import { INVESTIGATOR_FILTER } from "../../constants/cardConstants"
 
 export default function InvestigatorListPage() {
-    const { setFilter } = useCardsContext()
-    useEffect(() => {
-        setFilter(prev => ({
-            ...prev,
-            typeCode: { term: 'investigator', operation: 'eq' },
-            hidden: { term: 1, operation: 'ne' }
-        }))
-    }, [])
+    const [filter, setFilter] = useState(INVESTIGATOR_FILTER)
+    const filteredCards = useCardsFilter(filter)
 
     return (
         <Container>
-            <FactionSelector />
+            <FactionSelector filter={filter} setFilter={setFilter} />
             <div className='mb-1'>
-                <IconSelector type={['damage', 'horror']} />
+                <IconSelector type={['damage', 'horror']} filter={filter} setFilter={setFilter} />
             </div>
             <div className='mb-3'>
-                <IconSelector type={['willpower', 'combat', 'intellect', 'agility',]} />
+                <IconSelector type={['willpower', 'combat', 'intellect', 'agility',]} filter={filter} setFilter={setFilter} />
             </div>
-            <InvestigatorList />
+            <InvestigatorList cards={filteredCards} />
         </Container>
     )
 }

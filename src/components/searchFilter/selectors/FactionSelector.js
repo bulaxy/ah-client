@@ -1,10 +1,7 @@
 import { ButtonGroup, Button, Image, ToggleButton } from "react-bootstrap"
-import { useCardsContext } from "../../../contexts/CardsContext"
 import { FACTION_LIST } from "../../../constants/cardConstants"
-import { useState } from "react"
 
-export default function FactionSelector() {
-    const { setFilter, filter } = useCardsContext()
+export default function FactionSelector({ filter = {}, setFilter = () => { } }) {
 
     const onSelect = (faction) => {
         setFilter(prev => ({

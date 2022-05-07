@@ -1,11 +1,3 @@
-@font-face {
-    font-family: 'arkham-icons';
-    src: url(../fonts/arkham-icons.otf);
-}
-
-.arkham-icons {
-    font-family:'arkham-icons'
-}
 
 .react-select > div {
     margin: -1px;

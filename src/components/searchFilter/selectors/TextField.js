@@ -3,8 +3,7 @@ import { Dropdown, DropdownButton, FormControl, Image, InputGroup } from "react-
 import { useCardsContext } from "../../../contexts/CardsContext"
 import OperationDropdown from '../../general/OperationDropdown'
 
-export default function TextField({ type = {} }) {
-    const { filter, setFilter, getFilterValue } = useCardsContext()
+export default function TextField({ type = {}, filter, setFilter }) {
     const [operator, setOperator] = useState(filter[type]?.operation || 'includes')
     const [value, setValue] = useState(filter[type]?.term)
 
