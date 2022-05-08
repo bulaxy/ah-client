@@ -18,3 +18,6 @@ Completed
 ## TODO
 - Server side storing Cards and decks (Nosql database should be best in this case)
 - Deck Building Page (Planning to use React-beautiful-dnd to make a easy to use interface)
+
+## Long Long Long term goal
+- set up a docker and yaml files to try and learn more about them
