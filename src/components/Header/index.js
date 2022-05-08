@@ -47,7 +47,7 @@ export default function Header() {
     return (
         <Navbar bg="dark" variant="dark" >
             <Container fluid>
-                <Navbar.Brand href="/">Arkham Brainstormer</Navbar.Brand>
+                <Navbar.Brand href="/ah-client/">Arkham Brainstormer</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -55,8 +55,8 @@ export default function Header() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="investigators">Deck Builder</Nav.Link>
-                        <Nav.Link href="/">Cards Info</Nav.Link>
+                        {/* <Nav.Link href="investigators">Deck Builder</Nav.Link> */}
+                        {/* <Nav.Link href="/ah-client/">Cards Info</Nav.Link> */}
                     </Nav>
                     <ChaosBagModal
                         trigger={
