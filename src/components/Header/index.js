@@ -47,7 +47,7 @@ export default function Header() {
     return (
         <Navbar bg="dark" variant="dark" >
             <Container fluid>
-                <Navbar.Brand href="/">Navbar scroll</Navbar.Brand>
+                <Navbar.Brand href="/">Arkham Brainstormer</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav

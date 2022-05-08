@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useState, useCallback } from "re
 import useLocalStorage from "../hooks/useLocalStorage"
 import { useAxios } from "../hooks/useAxios"
 import { objectKeyToCamelCase, capitalize } from "../helpers/general"
-
+import { STORED_CARD_20220508 } from '../constants/cardConstants'
 const CardsContext = React.createContext()
 
 export const useCardsContext = () => {
@@ -10,14 +10,16 @@ export const useCardsContext = () => {
 }
 
 export const CardsProvider = ({ children }) => {
-    const [cards, setCards] = useLocalStorage('cardList', [])
-    const { data, error, loading } = useAxios('http://localhost:8000/api/arkhamcardlist', 'GET', {}, [cards === null || cards.length == 0 ? true : false])
+    const [cards, setCards] = useLocalStorage('cardList', STORED_CARD_20220508)
+    // Use local cards for now
+    // const { data, error, loading } = useAxios('http://localhost:8000/api/arkhamcardlist', 'GET', {}, [cards === null || cards.length == 0 ? true : false])
 
-    useEffect(() => {
-        if (data) {
-            setCards(objectKeyToCamelCase(data.data))
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if (data) {
+    //         setCards(objectKeyToCamelCase(data.data))
+    //     }
+    // }, [data])
+
     // console.log(cards.filter(o => o.deckOptions).map(o => o.deckOptions), [...new Set(cards.map(obj => Object.keys(obj)).flat())])
     // console.log(cards, [...new Set(cards.map(obj => Object.keys(obj).map(key => JSON.stringify({ key, type: typeof obj[key] }))).flat())].map(json => JSON.parse(json)))
 
