@@ -36,7 +36,7 @@ export default function CardModal(props) {
                             <Accordion.Header>Alternatives</Accordion.Header>
                             <Accordion.Body>
                                 <Container>
-                                    <Row>
+                                    <Row xs={3} md={4} className="g-4" >
                                         <Col>
                                             <CardFlipper code={card.code} />
                                         </Col>
@@ -49,7 +49,7 @@ export default function CardModal(props) {
                                 <Accordion.Header>Signatures</Accordion.Header>
                                 <Accordion.Body>
                                     <Container>
-                                        <Row>
+                                        <Row xs={3} md={4} className="g-4" >
                                             {Object.keys(card?.['deckRequirements']?.card ?? {})?.map(signature => <Col><CardFlipper code={signature} /></Col>)}
                                         </Row>
                                     </Container>
@@ -80,7 +80,7 @@ export default function CardModal(props) {
                             <Accordion.Item eventKey={5}>
                                 <Accordion.Header>Bounded To</Accordion.Header>
                                 <Accordion.Body>
-                                    <Row>
+                                    <Row xs={3} md={4} className="g-4" >
                                         {card?.bondedCards?.map(card =>
                                             <Col>
                                                 <CardFlipper code={card.code} />
@@ -102,7 +102,8 @@ export default function CardModal(props) {
                             <Accordion.Item eventKey={5}>
                                 <Accordion.Header>Playable By</Accordion.Header>
                                 <Accordion.Body>
-                                    <Row>
+
+                                    <Row xs={3} md={4} className="g-4" >
                                         {playableBy?.map(card =>
                                             <Col>
                                                 <CardFlipper code={card.code} />

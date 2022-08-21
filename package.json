@@ -1,6 +1,6 @@
 {
   "name": "arkham-horror-site",
-  "homepage": "https://github.com/bulaxy/ah-client/",
+  "homepage": "https://bulaxy.github.io/ah-client/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
