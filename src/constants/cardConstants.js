@@ -1,43 +1,57 @@
 export const ALL = {
     factionCode: undefined,
     factionName: 'All',
-    img: require("../resources/icons/all.png")
+    img: require("../resources/icons/all.png"),
 }
 
 export const GUARDIAN = {
     factionCode: 'guardian',
     factionName: 'Guardian',
-    img: require("../resources/icons/guardian.png")
+    img: require("../resources/icons/guardian.png"),
+    color: 'rgba(43, 128, 237, 0.2)'
 }
 
 export const MYSTIC = {
     factionCode: 'mystic',
     factionName: 'Mystic',
-    img: require("../resources/icons/mystic.png")
+    img: require("../resources/icons/mystic.png"),
+    color: 'rgba(125, 80, 215, 0.3)'
 }
 
 export const ROGUE = {
     factionCode: 'rogue',
     factionName: 'Rogue',
-    img: require("../resources/icons/rogue.png")
+    img: require("../resources/icons/rogue.png"),
+    color: 'rgba(16, 113, 22, 0.2)'
 }
 
 export const SEEKER = {
     factionCode: 'seeker',
     factionName: 'Seeker',
-    img: require("../resources/icons/seeker.png")
+    img: require("../resources/icons/seeker.png"),
+    color: 'rgba(255, 143, 63, 0.2)'
 }
 
 export const SURVIVOR = {
     factionCode: 'survivor',
     factionName: 'Survivor',
-    img: require("../resources/icons/survivor.png")
+    img: require("../resources/icons/survivor.png"),
+    color: 'rgba(204, 48, 56, 0.2)'
 }
+
 
 export const NEUTRAL = {
     factionCode: 'neutral',
     factionName: 'Neutral',
     img: require("../resources/icons/neutral.png")
+}
+
+export const FACTION_COLOR = {
+    guardian:GUARDIAN.color,
+    mystic:MYSTIC.color,
+    rogue:ROGUE.color,
+    seeker:SEEKER.color,
+    survivor:SURVIVOR.color,
 }
 
 export const FILTERABLE_STRING_KEY = [
@@ -321,6 +335,84 @@ export const FACTION_LIST = [
     NEUTRAL
 ]
 
+export const TEST_DECK = {
+    "data": {
+        "id": 2302843,
+        "name": "Unplayed - Curse Luke",
+        "date_creation": "2022-08-03T09:13:09+00:00",
+        "date_update": "2022-08-09T23:35:49+00:00",
+        "description_md": "",
+        "user_id": null,
+        "investigator_code": "06004",
+        "investigator_name": "Luke Robinson",
+        "slots": {
+            "01000": 1,
+            "01059": 2,
+            "01089": 2,
+            "01093": 2,
+            "03033": 2,
+            "03112": 2,
+            "06013": 1,
+            "06014": 1,
+            "07023": 2,
+            "07032": 2,
+            "07112": 2,
+            "07113": 1,
+            "07117": 2,
+            "07222": 2,
+            "07271": 2,
+            "08062": 2,
+            "08063": 2,
+            "08090": 2,
+            "08120": 2
+        },
+        "sideSlots": [],
+        "ignoreDeckLimitSlots": null,
+        "version": "0.2",
+        "xp": null,
+        "xp_spent": null,
+        "xp_adjustment": 0,
+        "exile_string": null,
+        "taboo_id": null,
+        "meta": "{}",
+        "tags": "mystic curse Luke unplayed",
+        "previous_deck": null,
+        "next_deck": null,
+        "problem": null
+    },
+    "status": 200,
+    "statusText": "OK",
+    "headers": {
+        "cache-control": "private, must-revalidate",
+        "content-length": "670",
+        "content-type": "application/json",
+        "last-modified": "Tue, 09 Aug 2022 23:35:49 GMT"
+    },
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false
+        },
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "headers": {
+            "Accept": "application/json, text/plain, */*"
+        },
+        "method": "get",
+        "url": "https://arkhamdb.com/api/public/deck/2302843"
+    },
+    "request": {}
+}
 export const STORED_CARD_20220508 = [
     {
         "packCode": "core",

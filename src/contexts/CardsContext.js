@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState, useCallback } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
-import { useAxios } from "../hooks/useAxios"
+// import { useAxios } from "../hooks/useAxios"
 import { objectKeyToCamelCase, capitalize } from "../helpers/general"
 import { STORED_CARD_20220508 } from '../constants/cardConstants'
 const CardsContext = React.createContext()
@@ -12,7 +12,7 @@ export const useCardsContext = () => {
 export const CardsProvider = ({ children }) => {
     const [cards, setCards] = useLocalStorage('cardList', STORED_CARD_20220508)
     // Use local cards for now
-    // const { data, error, loading } = useAxios('http://localhost:8000/api/arkhamcardlist', 'GET', {}, [cards === null || cards.length == 0 ? true : false])
+    // const { data, error, loading } = useAxios('http://localhost:8000/api/arkhamcardlist', 'GET', {}, cards === null || cards.length == 0 ? true : false)
 
     // useEffect(() => {
     //     if (data) {
@@ -25,6 +25,10 @@ export const CardsProvider = ({ children }) => {
 
     const getCardByCode = useCallback((code) => {
         return cards.find(card => card.code === code)
+    }, [cards])
+
+    const getCardByCodes = useCallback((codes) => {
+        return cards.filter(card => codes.includes(card.code))
     }, [cards])
 
     const getWhoCanPlayThis = useCallback((code) => {
@@ -123,12 +127,15 @@ export const CardsProvider = ({ children }) => {
             })
     }, [cards])
 
+
+
     return (
         <CardsContext.Provider
             value={{
                 cards,
                 getCardByCode,
-                getWhoCanPlayThis
+                getWhoCanPlayThis,
+                getCardByCodes
             }}
         >
             {children}
