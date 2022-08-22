@@ -5,6 +5,7 @@ import { objectKeyToCamelCase, capitalize } from "../helpers/general"
 import { STORED_CARD_20220508, TEST_DECK } from '../constants/cardConstants'
 import { useToggle } from "../hooks/useToggle"
 import { useCardsContext } from "./CardsContext"
+import axios from "axios"
 const StatsContext = React.createContext()
 
 export const useStatsContext = () => {
@@ -24,40 +25,29 @@ export const StatsProvider = ({ children }) => {
         { xAxis: 'skillWild', title: 'wild' },
         { xAxis: 'skillCombat', title: 'combat' },
         { xAxis: 'skillAgility', title: 'Agility' },
-
     ])
     const [url, setUrl] = useState('')
     const [refresh, toggleRefresh] = useToggle(false)
     const { getCardByCode } = useCardsContext()
-
-
-
-    const [getData, { data, loading, refetch }] = useLazyAxios('https://localhost:8000'
-        // 'https://arkhamdb.com/api/public/deck/' + url,
-        // {
-        //     headers: { 'Access-Control-Allow-Origin': '*' },
-        //     method: 'GET'
-        // }
-    )
-    const testData = TEST_DECK
+    const [getData, { data, loading, refetch }] = useLazyAxios(`https://arkhamdb.com/api/public/deck/${url}.json`)
 
     useEffect(() => {
         if (!loading) {
             toggleRefresh(false)
         }
-        // if (!data?.data?.slots) return
-        let data = testData
-        let slots = data.data.slots
-        setDeck({
-            ...data.data,
-            list: Object.keys(slots).map(key => {
-                return {
-                    ...getCardByCode(key),
-                    qtyInDeck: slots[key]
-                }
-            })
-        })
 
+        let slots = data?.slots
+        if (slots) {
+            setDeck({
+                ...data,
+                list: Object.keys(slots).map(key => {
+                    return {
+                        ...getCardByCode(key),
+                        qtyInDeck: slots[key]
+                    }
+                })
+            })
+        }
     }, [data, loading])
 
     const addChart = (type) => {
@@ -73,16 +63,13 @@ export const StatsProvider = ({ children }) => {
         let matches = inputValue.split('/').find(string => string?.match(/^[0-9]{5,8}/)?.length)
         if (!matches) return alert('Invalid Url')
         setUrl(matches)
-        getData()
     }
 
     useEffect(() => {
         if (url) {
-            console.log(url)
             getData()
         }
     }, [url])
-
 
     return (
         <StatsContext.Provider

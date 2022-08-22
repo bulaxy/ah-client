@@ -1,4 +1,4 @@
-import { Col, Container, Form } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import { StatsProvider, useStatsContext } from '../../contexts/StatsContext'
 import DeckUrlInput from './DeckUrlInput'
 import SimpleDeskList from './SimpleDeskList'
@@ -10,12 +10,15 @@ export default function DeckChart(props) {
         <Container >
             <StatsProvider>
                 <DeckUrlInput />
-                <Col>
-                    {/* <SimpleDeskList /> */}
-                </Col>
-                <Col>
-                    <Charts />
-                </Col>
+                <Row>
+
+                    <Col className='col-2'>
+                        <SimpleDeskList />
+                    </Col>
+                    <Col className='col-10'>
+                        <Charts />
+                    </Col>
+                </Row>
             </StatsProvider>
         </Container>
     )

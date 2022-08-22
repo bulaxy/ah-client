@@ -47,18 +47,17 @@ export default function TraitsChart({ chart = {} }) {
     let list = deck?.list || []
 
     const groupedList = groupBy(list, 'factionCode')
-    const labels = [...new Set(list.map(o => o.traits.split('.').filter(trait => trait).map(trait => trait?.trim())).flat())]
+    const labels = [...new Set(list.map(o => o?.traits?.split('.')?.filter(trait => trait)?.map(trait => trait?.trim()))?.flat())]
     const data = {
         labels,
         datasets: [
             ...Object.keys(groupedList).map(key => ({
                 label: key,
                 backgroundColor: FACTION_COLOR[key],
-                data: labels.map(label => groupedList[key].filter(card => card.traits.includes(label)).map(o => o.qtyInDeck).reduce((a, b) => a + b, 0))
+                data: labels.map(label => groupedList[key].filter(card => card?.traits?.includes(label)).map(o => o.qtyInDeck).reduce((a, b) => a + b, 0))
             })),
         ]
     };
-    console.log(data)
 
     return <Bar options={options} data={data} />
 }
