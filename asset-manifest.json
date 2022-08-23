@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ah-client/static/css/main.0b074cac.css",
-    "main.js": "/ah-client/static/js/main.3afe9f6a.js",
+    "main.js": "/ah-client/static/js/main.747b5679.js",
     "static/media/curse.png": "/ah-client/static/media/curse.5f47a045e33f97492166.png",
     "static/media/bless.png": "/ah-client/static/media/bless.ea2cc34b8d5ba5756039.png",
     "static/media/frost.png": "/ah-client/static/media/frost.5e0202777ddf86da1afd.png",
@@ -35,10 +35,10 @@
     "static/media/all.png": "/ah-client/static/media/all.1063f2a3a8bb88e662b5.png",
     "index.html": "/ah-client/index.html",
     "main.0b074cac.css.map": "/ah-client/static/css/main.0b074cac.css.map",
-    "main.3afe9f6a.js.map": "/ah-client/static/js/main.3afe9f6a.js.map"
+    "main.747b5679.js.map": "/ah-client/static/js/main.747b5679.js.map"
   },
   "entrypoints": [
     "static/css/main.0b074cac.css",
-    "static/js/main.3afe9f6a.js"
+    "static/js/main.747b5679.js"
   ]
 }
