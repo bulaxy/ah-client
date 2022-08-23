@@ -23,8 +23,8 @@ ChartJS.register(
 );
 
 
-export default function Chart({ chart }) {
-    const { deck } = useStatsContext()
+export default function Chart({ chart, deck }) {
+    // const { deck } = useStatsContext()
 
     const options = {
         plugins: {

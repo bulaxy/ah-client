@@ -9,7 +9,7 @@ export default function DeckChart(props) {
     return (
         <Container >
             <StatsProvider>
-                <DeckUrlInput />
+                {/* <DeckUrlInput />
                 <Row>
 
                     <Col className='col-2'>
@@ -18,7 +18,7 @@ export default function DeckChart(props) {
                     <Col className='col-10'>
                         <Charts />
                     </Col>
-                </Row>
+                </Row> */}
             </StatsProvider>
         </Container>
     )

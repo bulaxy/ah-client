@@ -7,16 +7,15 @@ import { useStatsContext } from '../../../contexts/StatsContext'
 import TraitsChart from './TraitsChart'
 
 
-export default function Charts() {
-    const { charts } = useStatsContext()
+export default function Charts({ charts, deck }) {
 
     return <Row xs={1} md={3} className="g-4">
-
+        {/* 
         {charts?.map(chart =>
             <Col>
-                <Chart chart={chart} />
+                <Chart chart={chart} deck={deck} />
             </Col>
-        )}
-        <TraitsChart />
+        )} */}
+        <TraitsChart deck={deck} />
     </Row>
 }

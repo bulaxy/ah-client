@@ -23,8 +23,7 @@ ChartJS.register(
 );
 
 
-export default function IconsChart({ chart }) {
-    const { deck } = useStatsContext()
+export default function IconsChart({ chart, deck }) {
 
     const options = {
         plugins: {

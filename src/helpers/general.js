@@ -80,6 +80,10 @@ const arrayToObject = (arr, key) => {
     }, {})
 }
 
+const randomNumber = (min = 0, max = 1) => {
+    return Math.floor(Math.random() * (max - min) + min)
+}
+
 export {
     groupBy,
     mapToKey,
@@ -88,5 +92,6 @@ export {
     sumArr,
     capitalize,
     arrayToObject,
+    randomNumber
 }
 
