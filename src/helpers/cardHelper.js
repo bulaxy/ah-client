@@ -16,7 +16,12 @@ const getCardKey = (type) => {
     }
 }
 
+
+const filterInvestigatorIdentifyingCards = (list) => list.filter(card => !(card?.restrictions?.investigator || card.typeCode == 'investigator'))
+
+
 export {
-    getCardKey
+    getCardKey,
+    filterInvestigatorIdentifyingCards
 }
 
