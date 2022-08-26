@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { Form, Button, InputGroup } from 'react-bootstrap'
 import CardHeader from 'react-bootstrap/esm/CardHeader'
-import { useStatsContext } from '../../../contexts/StatsContext'
+import { useStatsContext } from '../../contexts/StatsContext'
 
 export default function SimpleDeskList() {
     const { deck } = useStatsContext()

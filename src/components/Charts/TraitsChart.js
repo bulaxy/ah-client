@@ -23,7 +23,7 @@ ChartJS.register(
 );
 
 
-export default function TraitsChart({ chart = {} }) {
+export default function TraitsChart() {
     const { deck } = useStatsContext()
 
     const options = {

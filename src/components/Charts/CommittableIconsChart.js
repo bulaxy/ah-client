@@ -23,14 +23,14 @@ ChartJS.register(
 );
 
 
-export default function Chart({ chart }) {
+export default function CommittableIconsChart({ chart }) {
     const { deck } = useStatsContext()
 
     const options = {
         plugins: {
             title: {
                 display: true,
-                text: chart.title,
+                text: 'Committable Icons (included Wild)',
             },
         },
         responsive: true,
@@ -47,7 +47,7 @@ export default function Chart({ chart }) {
     let list = deck?.list || []
 
     const groupedList = groupBy(list, 'factionCode')
-    const labels = [...new Set(list.map(o => o[chart.xAxis]).filter(key => typeof key !== 'undefined'))].sort((a, b) => a - b)
+    const labels = ['Agility', 'Combat', 'Intellect', 'Willpower', 'Wild']
     const data = {
         labels,
         datasets: [

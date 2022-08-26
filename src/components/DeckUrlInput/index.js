@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 import { Form, Button, InputGroup } from 'react-bootstrap'
-import { useStatsContext } from '../../../contexts/StatsContext'
+import { useStatsContext } from '../../contexts/StatsContext'
 
 export default function DeckUrlInput() {
     const [url, setUrl] = useState('')

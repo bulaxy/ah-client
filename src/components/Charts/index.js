@@ -11,12 +11,10 @@ export default function Charts() {
     const { charts } = useStatsContext()
 
     return <Row xs={1} md={3} className="g-4">
-
         {charts?.map(chart =>
             <Col>
                 <Chart chart={chart} />
             </Col>
         )}
-        <TraitsChart />
     </Row>
 }
