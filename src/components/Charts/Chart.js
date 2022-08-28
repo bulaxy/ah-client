@@ -25,9 +25,11 @@ ChartJS.register(
 );
 
 const chartDataTransformation = (list, chart) => {
+    let localList = list.map(o => ({ ...o, factionCode: faction2Code ? 'multiclass' : factionCode }))
+
     switch (chart.transformType) {
         case 'committable': {
-            return groupBy(list.map(o => {
+            return groupBy(localList.map(o => {
                 if (o.skillWild) {
                     return {
                         ...o,
@@ -42,7 +44,7 @@ const chartDataTransformation = (list, chart) => {
             }), 'factionCode')
         }
         default:
-            return groupBy(list, 'factionCode')
+            return groupBy(localList, 'factionCode')
     }
 }
 
